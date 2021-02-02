@@ -1,0 +1,476 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>TSF TOKEN GENERATOR</title>
+  <link rel="icon" type="image/svg" href="metamask-fox.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" type="text/css" />
+</head>
+
+<body>
+  <main class="container shdiv">
+    <header>
+      <div id="logo-container">
+        <!-- <h1 id="logo-text" class="text-center">
+          Create ERC20 Token on TSF Network
+        </h1> -->
+
+        <img id="mm-logo" src="token-generator.png" />
+      </div>
+    </header>
+    <section>
+      <div class="row">
+        <div class="col-xl-12 text-center">
+          <button class="btn btn-primary btn-lg btn-block mb-3" id="connectButton" disabled>
+            Connect
+          </button>
+        </div>
+      </div>
+      <p class="mt20 text-center" id="notice">Notice: When you see in Network "TSF Mainnet", you are on the right network.</p>
+
+      <div class="row">
+
+        <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+          <h3 class="card-title status">
+            Network &nbsp;:
+          </h3>
+        </div>
+        <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
+          <span id="network"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+          <h3 class="card-title status">
+            Account :
+          </h3>
+        </div>
+        <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
+          <span id="accounts"></span>
+        </div>
+      </div>
+
+
+
+      <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="network"></button>
+          <br>
+          <button class="btn btn-primary btn-lg btn-block mb-3" id="accounts"></button> -->
+
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <p class="info-text alert alert-primary">
+            Network:
+            <br>
+            <span id="network"></span>
+          </p>
+        </div> -->
+
+      <!-- <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+          <p class="info-text alert alert-secondary">
+            ChainId:
+            <span id="chainId"></span>
+          </p>
+        </div> -->
+
+      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <p class="info-text alert alert-success">
+          Accounts:
+          <br>
+          <span id="accounts"></span>
+        </p>
+      </div> -->
+      <!-- </div> -->
+    </section>
+
+    <section id="selectContract">
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-10 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend mh50">
+                  <label class="input-group-text" for="inputGroupSelect01">Choose Smart Contract To Deploy</label>
+                </div>
+                <select class="custom-select mh50" id="inputGroupSelect01">
+                  <option selected>My Smart Bank</option>
+                  <option value="1">Default Erc20 Token</option>
+                  <option value="2">Mintable/Burnable Token</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="connectButton" disabled>
+                Connect
+              </button> -->
+
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="getAccounts">
+                eth_accounts
+              </button>
+
+              <p class="info-text alert alert-secondary">
+                eth_accounts result:
+                <span id="getAccountsResult"></span>
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section>
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">
+                Permissions Actions
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="requestPermissions">
+                Request Permissions
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="getPermissions">
+                Get Permissions
+              </button>
+
+              <p class="info-text alert alert-secondary">
+                Permissions result:
+                <span id="permissionsResult"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section id="smartBank">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract :
+                <strong>My Smart Bank</strong>
+              </h4>
+              <p></p>
+              <div class="ace-holder">
+                <textarea name="editor">
+                  contract PiggyBank { uint private balance; address public owner; function PiggyBank() public { owner = msg.sender; balance
+                  = 0; } function deposit() public payable returns (uint) { balance += msg.value; return balance; } function
+                  withdraw(uint withdrawAmount) public returns (uint remainingBal) { require(msg.sender == owner); balance
+                  -= withdrawAmount; msg.sender.transfer(withdrawAmount); return balance; } }
+                </textarea>
+                <div id="editor"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Deploy :
+                <strong>My Smart Bank</strong>
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="deployButton" disabled>
+                Deploy Contract
+              </button>
+              <p class="info-text alert alert-secondary">
+                Deployment Status:
+                <span id="contractStatus"></span>
+              </p>
+              <p id="deployedBank" class="info-text alert">
+                <span id="contractAddress"></span>
+                <span id="contractHash"></span>
+              </p>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="depositButton" disabled>
+                Deposit
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="withdrawButton" disabled>
+                Withdraw
+              </button>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Send Eth
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="sendButton" disabled>
+                Send
+              </button>
+
+              <hr />
+
+              <h4>
+                Sign Typed Data
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="signTypedData" disabled>
+                Sign
+              </button>
+
+              <p class="info-text alert alert-warning">
+                Sign Typed Data Result:
+                <span id="signTypedDataResult"></span>
+              </p>
+            </div>
+          </div>
+        </div> -->
+    </section>
+    <section id="defaultToken">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract :
+                <strong>Deafault Erc20 Token</strong>
+              </h4>
+              <p></p>
+              <div class="ace-holder">
+                <textarea name="editor1">
+                  pragma solidity ^0.4.23; interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token,
+                  bytes _extraData) external; } contract owned{ address public owner; constructor ()public{ owner = msg.sender;
+                  } function changeOwner(address newOwner) public onlyOwner{ owner = newOwner; } modifier onlyOwner{ require(msg.sender
+                  == owner); _; } } contract Erc20Token { function totalSupply() public view returns (uint); function balanceOf(address
+                  tokenOwner) public view returns (uint balance); function allowance(address tokenOwner, address spender)
+                  public view returns (uint remaining); function transfer(address to, uint tokens) public returns (bool success);
+                  function approve(address spender, uint tokens) public returns (bool success); function transferFrom(address
+                  from, address to, uint tokens) public returns (bool success); event Transfer(address indexed from, address
+                  indexed to, uint tokens); event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+                  } contract Erc20TokenNamePlaceholder is Erc20Token, owned { string public name; string public symbol; uint
+                  public decimals; uint _totalSupply; mapping(address => uint) _balanceOf; mapping(address => mapping(address
+                  => uint)) _allowance; event Burn(address indexed from, uint amount); event Mint(address indexed from, uint
+                  amount); constructor(string tokenName, string tokenSymbol, uint tokenDecimals, uint tokenTotalSupply) public
+                  { name = tokenName; symbol = tokenSymbol; decimals = tokenDecimals; _totalSupply = tokenTotalSupply * 10**uint(decimals);
+                  _balanceOf[msg.sender] = _totalSupply; } function totalSupply() public view returns (uint){ return _totalSupply;
+                  } function balanceOf(address tokenOwner) public view returns (uint balance){ return _balanceOf[tokenOwner];
+                  } function allowance(address tokenOwner, address spender) public view returns (uint remaining){ return
+                  _allowance[tokenOwner][spender]; } function transfer(address to, uint value) public returns (bool success){
+                  _transfer(msg.sender, to, value); return true; } function transferFrom(address from, address to, uint value)
+                  public returns (bool success){ require(_allowance[from][msg.sender] >= value); _allowance[from][msg.sender]
+                  -= value; _transfer(from, to, value); return true; } function approve(address spender, uint value) public
+                  returns (bool succes) { _allowance[msg.sender][spender] = value; return true; } function approveAndCall(address
+                  spender, uint value, bytes extraData) public returns (bool success){ tokenRecipient _spender = tokenRecipient(spender);
+                  if(approve(spender, value)){ _spender.receiveApproval(msg.sender, value, this, extraData); return true;
+                  } } function burnFrom(address from, uint amount) public onlyOwner returns(bool success) { require(_balanceOf[from]
+                  >= amount); require(_balanceOf[from] - amount
+                  <=_ balanceOf[from]); if(owner !=f rom){ require(_allowance[msg.sender][from]>= amount); } _balanceOf[from] -= amount; _allowance[msg.sender][from] -= amount; _totalSupply -= amount;
+                    emit Burn(from, amount); return true; } function mintTo(address to, uint amount) public onlyOwner returns(bool
+                    success){ require(_balanceOf[to] + amount >= _balanceOf[to]); require(_totalSupply + amount >= _totalSupply);
+                    _balanceOf[to] += amount; _totalSupply += amount; emit Mint(to, amount); return true; } function() public
+                    payable { require(false); } function _transfer(address from, address to, uint value) internal{ require(to
+                    != 0x0); require(_balanceOf[from] >= value); require(_balanceOf[to] + value >= _balanceOf[to]); uint
+                    previousBalance = _balanceOf[from] + _balanceOf[to]; _balanceOf[from] -= value; _balanceOf[to] += value;
+                    emit Transfer(from, to, value); assert(_balanceOf[from] + _balanceOf[to] == previousBalance); } }
+                </textarea>
+                <div id="editor1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Deploy Erc20 Default Token
+              </h4>
+
+              <!-- <p class="info-text alert alert-success">
+                Token:
+                <span id="tokenAddress"></span>
+              </p> -->
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="createToken" disabled>
+                Create Token
+              </button>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="basic-addon1">Name</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TECOS" aria-label="e.g. TECOS" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="basic-addon1">Symbol</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TCS" aria-label="e.g. TCS" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="basic-addon1">Decimals</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. 18" aria-label="e.g. 18" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="basic-addon1">Total Supply</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. 100000" aria-label="e.g. 100000" aria-describedby="basic-addon1">
+                </div>
+              </form>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokens" disabled>
+                Transfer Tokens
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokens" disabled>
+                Approve Tokens
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokensWithoutGas" disabled>
+                Transfer Tokens Without Gas
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokensWithoutGas" disabled>
+                Approve Tokens Without Gas
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- <section>
+      <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Encrypt / Decrypt
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="getEncryptionKeyButton" disabled>
+                Get Encryption Key
+              </button>
+
+              <hr />
+
+              <div id="encrypt-message-form">
+                <input class="form-control" type="text" placeholder="Message to encrypt" id="encryptMessageInput" />
+
+                <button class="btn btn-primary btn-lg btn-block mb-3" id="encryptButton" disabled>
+                  Encrypt
+                </button>
+              </div>
+
+              <hr />
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="decryptButton" disabled>
+                Decrypt
+              </button>
+
+              <p class="info-text alert alert-secondary">
+                Encryption key:
+                <span id="encryptionKeyDisplay"></span>
+              </p>
+
+              <p class="info-text text-truncate alert alert-secondary">
+                Ciphertext:
+                <span id="ciphertextDisplay"></span>
+              </p>
+
+              <p class="info-text alert alert-secondary">
+                Cleartext:
+                <span id="cleartextDisplay"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+  </main>
+  <script src="//cdn.bootcss.com/jquery/1.11.2/jquery.js"></script>
+  <!-- <script src="jquery.nicescroll.min.js"></script> -->
+
+
+  <!-- <script src="ace.js" type="text/javascript" charset="utf-8"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></script> -->
+  <script>
+    // var editor = ace.edit("editor");
+    // var val =
+    //   '<div class="row"><div class="col-sm-12"><span>chrome</span></div></div><div class="row"><div class="col-sm-12"><span>mozilla</span></div></div>';
+    // val = html_beautify(val);
+    // editor.session.setValue(val);
+    // editor.setTheme("ace/theme/twilight");
+    // editor.session.setMode("ace/mode/html");
+    var editor = ace.edit('editor');
+    var editor1 = ace.edit('editor1');
+    var txtAra = document.querySelector('textarea[name="editor"]');
+    var txtAra1 = document.querySelector('textarea[name="editor1"]');
+    var jsbOpts = {
+      indent_size: 2
+    };
+
+    // Setup
+    editor.setTheme("ace/theme/twilight");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor1.setTheme("ace/theme/twilight");
+    editor1.getSession().setMode("ace/mode/javascript");
+    // editor.renderer.setStyle("disabled", true)
+    syncEditor();
+    syncEditor1();
+
+    // Main Logic
+    setTimeout(formatCode, 1000); // Format sample JSON after 1 second.
+    setTimeout(formatCode1, 1000);
+
+    // Functions
+    function syncEditor() {
+      editor.getSession().setValue(txtAra.value);
+    }
+
+    function syncEditor1() {
+      editor1.getSession().setValue(txtAra1.value);
+    }
+
+    function commitChanges() {
+      txtAra.value = editor.getSession().getValue();
+    }
+
+    function commitChanges1() {
+      txtAra1.value = editor1.getSession().getValue();
+    }
+
+    function formatCode() {
+      var session = editor.getSession();
+      session.setValue(js_beautify(session.getValue(), jsbOpts));
+    }
+
+    function formatCode1() {
+      var session = editor1.getSession();
+      session.setValue(js_beautify(session.getValue(), jsbOpts));
+    }
+    // $(function () {
+    //   $("body").niceScroll({
+    //     cursorcolor: "#cc0000",
+    //     cursorborder: "6px solid #cc0000",
+    //     cursorminheight: 100,
+    //     autohidemode: false
+    //   });
+    // });
+  </script>
+
+  <script src="bundle.js" defer></script>
+</body>
+
+</html>
