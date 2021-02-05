@@ -1,5 +1,11 @@
 body {
   font-family: 'Poppins', sans-serif;
+  background: black;
+  background-image: url(background.png);
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  color: #fff;
 }
 
 section {
@@ -30,7 +36,7 @@ section {
 .shdiv {
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.17);
   margin-top: 50px;
-  background: #f9f9f9;
+  background: #ffffff14;
 }
 
 header {
@@ -106,13 +112,13 @@ header {
   width: 300px;
   vertical-align: middle;
   font-size: 20px;
-  color: #85b0f8;
+  color: #fff;
 }
 
 .mt20 {
   margin-top: 20px;
-  color: #929292;
-  border: 1px solid #e6e6e6;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   padding: 10px;
 }
 
@@ -178,7 +184,7 @@ header {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #ffffff05;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, .125);
   border-radius: .75rem;
