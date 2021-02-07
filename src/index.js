@@ -111,9 +111,11 @@ const isMetaMaskInstalled = () => {
 console.log(isMetaMaskInstalled());
 // Dapp Status Section
 const networkDiv = document.getElementById('network')
+console.log(networkDiv);
 const chainIdDiv = document.getElementById('chainId')
+console.log(chainIdDiv);
 const accountsDiv = document.getElementById('accounts')
-
+console.log(accountsDiv);
 // Basic Actions Section
 const onboardButton = document.getElementById('connectButton')
 // const getAccountsButton = document.getElementById('getAccounts')
@@ -252,97 +254,97 @@ const initialize = async () => {
      * Contract Interactions
      */
 
-    piggybankContract = web3.eth.contract([{
-      'constant': false,
-      'inputs': [{
-        'name': 'withdrawAmount',
-        'type': 'uint256'
-      }],
-      'name': 'withdraw',
-      'outputs': [{
-        'name': 'remainingBal',
-        'type': 'uint256'
-      }],
-      'payable': false,
-      'stateMutability': 'nonpayable',
-      'type': 'function'
-    }, {
-      'constant': true,
-      'inputs': [],
-      'name': 'owner',
-      'outputs': [{
-        'name': '',
-        'type': 'address'
-      }],
-      'payable': false,
-      'stateMutability': 'view',
-      'type': 'function'
-    }, {
-      'constant': false,
-      'inputs': [],
-      'name': 'deposit',
-      'outputs': [{
-        'name': '',
-        'type': 'uint256'
-      }],
-      'payable': true,
-      'stateMutability': 'payable',
-      'type': 'function'
-    }, {
-      'inputs': [],
-      'payable': false,
-      'stateMutability': 'nonpayable',
-      'type': 'constructor'
-    }])
-    deployButton.onclick = async () => {
-      contractStatus.innerHTML = 'Deploying'
+    // piggybankContract = web3.eth.contract([{
+    //   'constant': false,
+    //   'inputs': [{
+    //     'name': 'withdrawAmount',
+    //     'type': 'uint256'
+    //   }],
+    //   'name': 'withdraw',
+    //   'outputs': [{
+    //     'name': 'remainingBal',
+    //     'type': 'uint256'
+    //   }],
+    //   'payable': false,
+    //   'stateMutability': 'nonpayable',
+    //   'type': 'function'
+    // }, {
+    //   'constant': true,
+    //   'inputs': [],
+    //   'name': 'owner',
+    //   'outputs': [{
+    //     'name': '',
+    //     'type': 'address'
+    //   }],
+    //   'payable': false,
+    //   'stateMutability': 'view',
+    //   'type': 'function'
+    // }, {
+    //   'constant': false,
+    //   'inputs': [],
+    //   'name': 'deposit',
+    //   'outputs': [{
+    //     'name': '',
+    //     'type': 'uint256'
+    //   }],
+    //   'payable': true,
+    //   'stateMutability': 'payable',
+    //   'type': 'function'
+    // }, {
+    //   'inputs': [],
+    //   'payable': false,
+    //   'stateMutability': 'nonpayable',
+    //   'type': 'constructor'
+    // }])
+    // deployButton.onclick = async () => {
+    //   contractStatus.innerHTML = 'Deploying'
 
-      const piggybank = await piggybankContract.new({
-        from: accounts[0],
-        data: '0x608060405234801561001057600080fd5b5033600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000808190555061023b806100686000396000f300608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e1a7d4d1461005c5780638da5cb5b1461009d578063d0e30db0146100f4575b600080fd5b34801561006857600080fd5b5061008760048036038101908080359060200190929190505050610112565b6040518082815260200191505060405180910390f35b3480156100a957600080fd5b506100b26101d0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100fc6101f6565b6040518082815260200191505060405180910390f35b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561017057600080fd5b8160008082825403925050819055503373ffffffffffffffffffffffffffffffffffffffff166108fc839081150290604051600060405180830381858888f193505050501580156101c5573d6000803e3d6000fd5b506000549050919050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60003460008082825401925050819055506000549050905600a165627a7a72305820f237db3ec816a52589d82512117bc85bc08d3537683ffeff9059108caf3e5d400029',
-        gas: '4700000',
-      }, (error, contract) => {
-        if (error) {
-          contractStatus.innerHTML = 'Deployment Failed'
-          throw error
-        } else if (contract.address === undefined) {
-          return
-        }
+    //   const piggybank = await piggybankContract.new({
+    //     from: accounts[0],
+    //     data: '0x608060405234801561001057600080fd5b5033600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000808190555061023b806100686000396000f300608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e1a7d4d1461005c5780638da5cb5b1461009d578063d0e30db0146100f4575b600080fd5b34801561006857600080fd5b5061008760048036038101908080359060200190929190505050610112565b6040518082815260200191505060405180910390f35b3480156100a957600080fd5b506100b26101d0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100fc6101f6565b6040518082815260200191505060405180910390f35b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561017057600080fd5b8160008082825403925050819055503373ffffffffffffffffffffffffffffffffffffffff166108fc839081150290604051600060405180830381858888f193505050501580156101c5573d6000803e3d6000fd5b506000549050919050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60003460008082825401925050819055506000549050905600a165627a7a72305820f237db3ec816a52589d82512117bc85bc08d3537683ffeff9059108caf3e5d400029',
+    //     gas: '4700000',
+    //   }, (error, contract) => {
+    //     if (error) {
+    //       contractStatus.innerHTML = 'Deployment Failed'
+    //       throw error
+    //     } else if (contract.address === undefined) {
+    //       return
+    //     }
 
-        console.log(`Contract mined! address: ${contract.address} transactionHash: ${contract.transactionHash}`)
-        contractStatus.innerHTML = 'Deployed'
-        contractAddress.innerHTML = `Contract Address<br>${contract.address}`;
-        contractHash.innerHTML = `Tx Hash<br>${contract.transactionHash}`;
-        document.getElementById("deployedBank").classList.add("alert-secondary");
-        depositButton.disabled = false
-        withdrawButton.disabled = false
+    //     console.log(`Contract mined! address: ${contract.address} transactionHash: ${contract.transactionHash}`)
+    //     contractStatus.innerHTML = 'Deployed'
+    //     contractAddress.innerHTML = `Contract Address<br>${contract.address}`;
+    //     contractHash.innerHTML = `Tx Hash<br>${contract.transactionHash}`;
+    //     document.getElementById("deployedBank").classList.add("alert-secondary");
+    //     depositButton.disabled = false
+    //     withdrawButton.disabled = false
 
-        depositButton.onclick = () => {
-          contractStatus.innerHTML = 'Deposit initiated'
-          contract.deposit({
-              from: accounts[0],
-              value: '0x3782dace9d900000',
-            },
-            (result) => {
-              console.log(result)
-              contractStatus.innerHTML = 'Deposit completed'
-            },
-          )
-        }
-        withdrawButton.onclick = () => {
-          contract.withdraw(
-            '0xde0b6b3a7640000', {
-              from: accounts[0]
-            },
-            (result) => {
-              console.log(result)
-              contractStatus.innerHTML = 'Withdrawn'
-            },
-          )
-        }
-      }, )
-      console.log(piggybank)
-    }
+    //     depositButton.onclick = () => {
+    //       contractStatus.innerHTML = 'Deposit initiated'
+    //       contract.deposit({
+    //           from: accounts[0],
+    //           value: '0x3782dace9d900000',
+    //         },
+    //         (result) => {
+    //           console.log(result)
+    //           contractStatus.innerHTML = 'Deposit completed'
+    //         },
+    //       )
+    //     }
+    //     withdrawButton.onclick = () => {
+    //       contract.withdraw(
+    //         '0xde0b6b3a7640000', {
+    //           from: accounts[0]
+    //         },
+    //         (result) => {
+    //           console.log(result)
+    //           contractStatus.innerHTML = 'Withdrawn'
+    //         },
+    //       )
+    //     }
+    //   }, )
+    //   console.log(piggybank)
+    // }
 
     /**
      * Sending ETH
@@ -369,298 +371,266 @@ const initialize = async () => {
       const name = 'TST'
       const symbol = 'TST'
       const totalSupply = 1000
-      
+
       const humanstandardtokenContract = web3.eth.contract([{
-        "inputs": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "symbol",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "totalSupply",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "owner",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "spender",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "value",
-            "type": "uint256"
-          }
-        ],
-        "name": "Approval",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "from",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "internalType": "address",
-            "name": "to",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "internalType": "uint256",
-            "name": "value",
-            "type": "uint256"
-          }
-        ],
-        "name": "Transfer",
-        "type": "event"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "owner",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address"
-          }
-        ],
-        "name": "allowance",
-        "outputs": [
-          {
+          "inputs": [{
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "symbol",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalSupply",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [{
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [{
+              "indexed": true,
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        {
+          "inputs": [{
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            }
+          ],
+          "name": "allowance",
+          "outputs": [{
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "approve",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [{
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "approve",
+          "outputs": [{
             "internalType": "bool",
             "name": "",
             "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
+          }],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [{
             "internalType": "address",
             "name": "account",
             "type": "address"
-          }
-        ],
-        "name": "balanceOf",
-        "outputs": [
-          {
+          }],
+          "name": "balanceOf",
+          "outputs": [{
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "decimals",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "decimals",
+          "outputs": [{
             "internalType": "uint8",
             "name": "",
             "type": "uint8"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "subtractedValue",
-            "type": "uint256"
-          }
-        ],
-        "name": "decreaseAllowance",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [{
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "subtractedValue",
+              "type": "uint256"
+            }
+          ],
+          "name": "decreaseAllowance",
+          "outputs": [{
             "internalType": "bool",
             "name": "",
             "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "spender",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "addedValue",
-            "type": "uint256"
-          }
-        ],
-        "name": "increaseAllowance",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [{
+              "internalType": "address",
+              "name": "spender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "addedValue",
+              "type": "uint256"
+            }
+          ],
+          "name": "increaseAllowance",
+          "outputs": [{
             "internalType": "bool",
             "name": "",
             "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "name",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "name",
+          "outputs": [{
             "internalType": "string",
             "name": "",
             "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "symbol",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "symbol",
+          "outputs": [{
             "internalType": "string",
             "name": "",
             "type": "string"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "totalSupply",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "totalSupply",
+          "outputs": [{
             "internalType": "uint256",
             "name": "",
             "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "recipient",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "transfer",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [{
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "transfer",
+          "outputs": [{
             "internalType": "bool",
             "name": "",
             "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "sender",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "recipient",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
-          }
-        ],
-        "name": "transferFrom",
-        "outputs": [
-          {
+          }],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [{
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "transferFrom",
+          "outputs": [{
             "internalType": "bool",
             "name": "",
             "type": "bool"
-          }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      }])
+          }],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }
+      ])
 
       return humanstandardtokenContract.new(
         name,
@@ -936,18 +906,19 @@ const initialize = async () => {
     }
 
     if (isMetaMaskConnected()) {
+      console.log("metamask connected")
       initializeAccountButtons()
     }
     updateButtons()
   }
 
   // function handleNewChain(chainId) {
-   
+
   //   console.log(chainId);
   // }
 
   // function handleNewNetwork(networkId) {
-   
+
   //   if (networkId == 56) {
   //     networkDiv.innerHTML = 'TSF Mainnet';
   //     console.log("tsf");
@@ -957,7 +928,7 @@ const initialize = async () => {
   //     networkDiv.innerHTML = 'You are connected with Metamask, but not on TSF network.<br>Please go to Metamask settings -> Networks -> Add Network,<br>Network Name -> TSF Mainnet,<br>New RPC URL -> https://rpc.tsfexplorer.xyz,<br>ChainID -> 56,<br>Symbol -> TSF,<br>Block Explorer URL -> https://explorer.tsf-platform.com';
   //   }
   // }
-   function handleNewChain(chainId) {
+  function handleNewChain(chainId) {
     // networkDiv.innerHTML = networkId;
     if (chainId == 0x38) {
       networkDiv.innerHTML = 'TSF Mainnet';
@@ -992,16 +963,19 @@ const initialize = async () => {
 
     ethereum.autoRefreshOnNetworkChange = false
     getNetworkAndChainId()
-
+    console.log("handle111");
     ethereum.on('chainChanged', handleNewChain)
+    console.log("handlechain2");
     // ethereum.on('networkChanged', handleNewNetwork)
     ethereum.on('accountsChanged', handleNewAccounts)
+    console.log("handle3");
 
     try {
       const newAccounts = await ethereum.request({
         method: 'eth_accounts',
       })
       handleNewAccounts(newAccounts)
+      console.log("handle1");
     } catch (err) {
       console.error('Error on init when getting accounts', err)
     }
@@ -1017,6 +991,3 @@ function getPermissionsDisplayString(permissionsArray) {
   const permissionNames = permissionsArray.map((perm) => perm.parentCapability)
   return permissionNames.reduce((acc, name) => `${acc}${name}, `, '').replace(/, $/u, '')
 }
-var test = "mmm";
-test = document.getElementById('accounts').value;
-console.log(test);

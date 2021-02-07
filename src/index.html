@@ -179,17 +179,24 @@
                 <strong>My Smart Bank</strong>
               </h4>
 
-              <button class="btn btn-primary btn-lg btn-block mb-3" id="deployButton" disabled>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="deployButton">
                 Deploy Contract
               </button>
               <p class="info-text alert alert-secondary">
                 Deployment Status:
                 <span id="contractStatus"></span>
               </p>
-              <p id="deployedBank" class="info-text alert">
-                <span id="contractAddress"></span>
-                <span id="contractHash"></span>
-              </p>
+              <!-- <p id="deployedBank" class="info-text alert">
+                Contract Address:
+                <br>
+                <span id="contractAddress" style="font-size: 0.7em;color:#9c9c9c;"></span>
+                <br> Contract Creator:
+                <br>
+                <span id="contractCreator" style="font-size: 0.7em; color: #9c9c9c;"></span>
+                <br> Contract Hash:
+                <span id="contractHash" style="font-size: 0.7em; color: #9c9c9c;"></span>
+                <br>
+              </p> -->
               <button class="btn btn-primary btn-lg btn-block mb-3" id="depositButton" disabled>
                 Deposit
               </button>
@@ -199,6 +206,24 @@
               </button>
 
 
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 align-items-stretch hidden" id="contractBankOutput">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract
+                <strong>Output :</strong>
+              </h4>
+              Contract Address:
+
+              <span id="contractAddress" style="font-size: 1.1em;color:#9c9c9c;"></span>
+              <br> Contract Creator:
+
+              <span id="contractCreator" style="font-size: 1.1em; color: #9c9c9c;"></span>
+              <br> Contract Hash:
+              <span id="contractHash" style="font-size: 1.1em; color: #9c9c9c;"></span>
             </div>
           </div>
         </div>
@@ -402,7 +427,8 @@
 
 
   <!-- <script src="ace.js" type="text/javascript" charset="utf-8"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q=="
+    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></script> -->
   <script>
