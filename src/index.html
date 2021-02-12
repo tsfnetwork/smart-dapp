@@ -98,7 +98,7 @@
                 </div>
                 <select class="custom-select mh50" id="inputGroupSelect01">
                   <option selected>My Smart Bank</option>
-                  <option value="1">Default Erc20 Token</option>
+                  <option value="1">Default TSF20 Token</option>
                   <option value="2">Mintable/Burnable Token</option>
                   <option value="3">Three</option>
                 </select>
@@ -264,7 +264,7 @@
             <div class="card-body">
               <h4 class="card-title">
                 Contract :
-                <strong>Deafault Erc20 Token</strong>
+                <strong>Deafault TSF20 Token</strong>
               </h4>
               <p></p>
               <div class="ace-holder">
@@ -313,7 +313,7 @@
           <div class="card full-width">
             <div class="card-body">
               <h4 class="card-title">
-                Deploy Erc20 Default Token
+                Deploy TSF20 Default Token
               </h4>
 
               <!-- <p class="info-text alert alert-success">
@@ -321,9 +321,13 @@
                 <span id="tokenAddress"></span>
               </p> -->
 
-              <button class="btn btn-primary btn-lg btn-block mb-3" id="createToken" disabled>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="createToken">
                 Create Token
               </button>
+              <p class="info-text alert alert-secondary">
+                Deployment Status:
+                <span id="contractStatus1"></span>
+              </p>
               <form>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -337,12 +341,12 @@
                   </div>
                   <input type="text" class="form-control" placeholder="e.g. TCS" aria-label="e.g. TCS" aria-describedby="basic-addon1">
                 </div>
-                <div class="input-group mb-3">
+                <!-- <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text mw100" id="basic-addon1">Decimals</span>
                   </div>
                   <input type="text" class="form-control" placeholder="e.g. 18" aria-label="e.g. 18" aria-describedby="basic-addon1">
-                </div>
+                </div> -->
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text mw100" id="basic-addon1">Total Supply</span>

@@ -34,12 +34,14 @@ const onboardButton = document.getElementById('connectButton');
 const deployButton = document.getElementById('deployButton');
 const depositButton = document.getElementById('depositButton');
 const withdrawButton = document.getElementById('withdrawButton');
+const createToken = document.getElementById('createToken');
 const contractStatus = document.getElementById('contractStatus');
+const contractStatus1 = document.getElementById('contractStatus1');
 const contractAddress = document.getElementById('contractAddress');
 const contractHash = document.getElementById('contractHash');
 const contractBankOutput = document.getElementById('contractBankOutput');
 
-const createToken = document.getElementById('createToken');
+// const createToken = document.getElementById('createToken');
 
 const initialize = async () => {
     try {
@@ -48,6 +50,11 @@ const initialize = async () => {
         piggybankFactory = new ethers.ContractFactory(
             piggybankAbi,
             piggybankBytecode,
+            provider.getSigner(),
+        );
+        erc20BaseFactory = new ethers.ContractFactory(
+            erc20BaseAbi,
+            erc20BaseBytecode,
             provider.getSigner(),
         );
         console.log(erc20BaseFactory);
@@ -116,10 +123,10 @@ const initialize = async () => {
             contractStatus.innerHTML = 'Deploying';
 
             try {
-                console.log("dep1");
+                console.log("deploying pending");
                 contract = await piggybankFactory.deploy();
                 await contract.deployTransaction.wait();
-                console.log("dep2");
+                console.log("deployed");
             } catch (error) {
                 contractStatus.innerHTML = 'Deployment Failed';
                 console.log("go wrong");
@@ -160,6 +167,27 @@ const initialize = async () => {
             // }
 
             console.log(contract)
+        }
+        createToken.onclick = async () => {
+            let contract;
+            contractStatus1.innerHTML = 'Deploying';
+            try {
+                const name = 'TST';
+                const symbol = 'TST';
+                const totalSupply = 1000;
+                console.log("deploying pending");
+                contract = await erc20BaseFactory.deploy(name, symbol, totalSupply);
+                await contract.deployTransaction.wait();
+                console.log("deployed", contract);
+            } catch (error) {
+                contractStatus.innerHTML = 'Deployment Failed';
+                console.log("go wrong");
+                throw error;
+            }
+
+            if (contract.address === undefined) {
+                return;
+            }
         }
     }
 
