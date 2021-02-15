@@ -2,9 +2,9 @@ body {
   font-family: 'Poppins', sans-serif;
   background: black;
   background-image: url(background.png);
-  background-position: center; 
-  background-repeat: no-repeat; 
-  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #fff;
 }
 
@@ -137,7 +137,8 @@ header {
 }
 
 #editor,
-#editor1 {
+#editor1,
+#editor2 {
   margin: 0;
   position: absolute;
   top: 0;

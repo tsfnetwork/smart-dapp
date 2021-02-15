@@ -269,7 +269,7 @@
               <p></p>
               <div class="ace-holder">
                 <textarea name="editor1">
-                  pragma solidity ^0.4.23; interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token,
+                  pragma solidity 0.6.7; interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token,
                   bytes _extraData) external; } contract owned{ address public owner; constructor ()public{ owner = msg.sender;
                   } function changeOwner(address newOwner) public onlyOwner{ owner = newOwner; } modifier onlyOwner{ require(msg.sender
                   == owner); _; } } contract Erc20Token { function totalSupply() public view returns (uint); function balanceOf(address
@@ -321,6 +321,37 @@
                 <span id="tokenAddress"></span>
               </p> -->
 
+              <a href="javascript:void(0)" type="button" class="btn btn-primary btn-lg btn-block mb-3" id="fillForm">
+                Fill the following form and click CREATE TOKEN
+
+              </a>
+
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="name">Name</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TECOS" aria-label="e.g. TECOS" aria-describedby="name" id="defaultName">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="symbol">Symbol</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TCS" aria-label="e.g. TCS" aria-describedby="symbol" id="defaultSymbol">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="decimals">Decimals</span>
+                  </div>
+                  <input type="text" class="form-control" value="18" aria-label="e.g. 18" aria-describedby="decimals" disabled>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="supply">Total Supply</span>
+                  </div>
+                  <input type="number" class="form-control" placeholder="e.g. 100000" aria-label="e.g. 100000" aria-describedby="supply" id="defaultSupply">
+                </div>
+              </form>
               <button class="btn btn-primary btn-lg btn-block mb-3" id="createToken">
                 Create Token
               </button>
@@ -328,53 +359,172 @@
                 Deployment Status:
                 <span id="contractStatus1"></span>
               </p>
-              <form>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text mw100" id="basic-addon1">Name</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="e.g. TECOS" aria-label="e.g. TECOS" aria-describedby="basic-addon1">
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text mw100" id="basic-addon1">Symbol</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="e.g. TCS" aria-label="e.g. TCS" aria-describedby="basic-addon1">
-                </div>
-                <!-- <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text mw100" id="basic-addon1">Decimals</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="e.g. 18" aria-label="e.g. 18" aria-describedby="basic-addon1">
-                </div> -->
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text mw100" id="basic-addon1">Total Supply</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="e.g. 100000" aria-label="e.g. 100000" aria-describedby="basic-addon1">
-                </div>
-              </form>
 
-              <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokens" disabled>
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokens" disabled>
                 Transfer Tokens
               </button>
 
               <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokens" disabled>
                 Approve Tokens
-              </button>
+              </button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 align-items-stretch hidden" id="defaultTokenOutput">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract
+                <strong>Output :</strong>
+              </h4>
+              Contract Address:
 
-              <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokensWithoutGas" disabled>
-                Transfer Tokens Without Gas
-              </button>
+              <span id="contractAddress1" style="font-size: 1.1em;color:#9c9c9c;"></span>
+              <br> Contract Creator:
 
-              <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokensWithoutGas" disabled>
-                Approve Tokens Without Gas
-              </button>
+              <span id="contractCreator1" style="font-size: 1.1em; color: #9c9c9c;"></span>
+              <br> Contract Hash:
+              <span id="contractHash1" style="font-size: 1.1em; color: #9c9c9c;"></span>
             </div>
           </div>
         </div>
       </div>
+
+    </section>
+    <section id="mintableToken">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract :
+                <strong>Mint/Burn TSF20 Token</strong>
+              </h4>
+              <p></p>
+              <div class="ace-holder">
+                <textarea name="editor2">
+                  pragma solidity 0.6.7; interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token,
+                  bytes _extraData) external; } contract owned{ address public owner; constructor ()public{ owner = msg.sender;
+                  } function changeOwner(address newOwner) public onlyOwner{ owner = newOwner; } modifier onlyOwner{ require(msg.sender
+                  == owner); _; } } contract Erc20Token { function totalSupply() public view returns (uint); function balanceOf(address
+                  tokenOwner) public view returns (uint balance); function allowance(address tokenOwner, address spender)
+                  public view returns (uint remaining); function transfer(address to, uint tokens) public returns (bool success);
+                  function approve(address spender, uint tokens) public returns (bool success); function transferFrom(address
+                  from, address to, uint tokens) public returns (bool success); event Transfer(address indexed from, address
+                  indexed to, uint tokens); event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+                  } contract Erc20TokenNamePlaceholder is Erc20Token, owned { string public name; string public symbol; uint
+                  public decimals; uint _totalSupply; mapping(address => uint) _balanceOf; mapping(address => mapping(address
+                  => uint)) _allowance; event Burn(address indexed from, uint amount); event Mint(address indexed from, uint
+                  amount); constructor(string tokenName, string tokenSymbol, uint tokenDecimals, uint tokenTotalSupply) public
+                  { name = tokenName; symbol = tokenSymbol; decimals = tokenDecimals; _totalSupply = tokenTotalSupply * 10**uint(decimals);
+                  _balanceOf[msg.sender] = _totalSupply; } function totalSupply() public view returns (uint){ return _totalSupply;
+                  } function balanceOf(address tokenOwner) public view returns (uint balance){ return _balanceOf[tokenOwner];
+                  } function allowance(address tokenOwner, address spender) public view returns (uint remaining){ return
+                  _allowance[tokenOwner][spender]; } function transfer(address to, uint value) public returns (bool success){
+                  _transfer(msg.sender, to, value); return true; } function transferFrom(address from, address to, uint value)
+                  public returns (bool success){ require(_allowance[from][msg.sender] >= value); _allowance[from][msg.sender]
+                  -= value; _transfer(from, to, value); return true; } function approve(address spender, uint value) public
+                  returns (bool succes) { _allowance[msg.sender][spender] = value; return true; } function approveAndCall(address
+                  spender, uint value, bytes extraData) public returns (bool success){ tokenRecipient _spender = tokenRecipient(spender);
+                  if(approve(spender, value)){ _spender.receiveApproval(msg.sender, value, this, extraData); return true;
+                  } } function burnFrom(address from, uint amount) public onlyOwner returns(bool success) { require(_balanceOf[from]
+                  >= amount); require(_balanceOf[from] - amount
+                  <=_ balanceOf[from]); if(owner !=f rom){ require(_allowance[msg.sender][from]>= amount); } _balanceOf[from] -= amount; _allowance[msg.sender][from] -= amount; _totalSupply -= amount;
+                    emit Burn(from, amount); return true; } function mintTo(address to, uint amount) public onlyOwner returns(bool
+                    success){ require(_balanceOf[to] + amount >= _balanceOf[to]); require(_totalSupply + amount >= _totalSupply);
+                    _balanceOf[to] += amount; _totalSupply += amount; emit Mint(to, amount); return true; } function() public
+                    payable { require(false); } function _transfer(address from, address to, uint value) internal{ require(to
+                    != 0x0); require(_balanceOf[from] >= value); require(_balanceOf[to] + value >= _balanceOf[to]); uint
+                    previousBalance = _balanceOf[from] + _balanceOf[to]; _balanceOf[from] -= value; _balanceOf[to] += value;
+                    emit Transfer(from, to, value); assert(_balanceOf[from] + _balanceOf[to] == previousBalance); } }
+                </textarea>
+                <div id="editor2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Deploy Mint/Burn TSF20 Token
+              </h4>
+
+              <!-- <p class="info-text alert alert-success">
+                Token:
+                <span id="tokenAddress"></span>
+              </p> -->
+
+
+              <a href="javascript:void(0)" type="button" class="btn btn-primary btn-lg btn-block mb-3" id="fillForm">
+                Fill the following form and click CREATE TOKEN
+
+              </a>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="mintName1">Name</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TECOS" aria-label="e.g. TECOS" aria-describedby="mintName1" id="mintName">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="mintSymbol1">Symbol</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TCS" aria-label="e.g. TCS" aria-describedby="mintSymbol1" id="mintSymbol">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="decimals">Decimals</span>
+                  </div>
+                  <input type="text" class="form-control" value="18" aria-label="e.g. 18" aria-describedby="decimals" disabled>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="mintSupply1">Initial Supply</span>
+                  </div>
+                  <input type="number" class="form-control" placeholder="e.g. 100000" aria-label="e.g. 100000" aria-describedby="mintSupply1"
+                    id="mintSupply">
+                </div>
+              </form>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="createMintableToken">
+                Create Token
+              </button>
+              <p class="info-text alert alert-secondary">
+                Deployment Status:
+                <span id="contractStatus2"></span>
+              </p>
+
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokens" disabled>
+                Transfer Tokens
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokens" disabled>
+                Approve Tokens
+              </button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 align-items-stretch hidden" id="mintTokenOutput">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract
+                <strong>Output :</strong>
+              </h4>
+              Contract Address:
+
+              <span id="contractAddress2" style="font-size: 1.1em;color:#9c9c9c;"></span>
+              <br> Contract Creator:
+
+              <span id="contractCreator2" style="font-size: 1.1em; color: #9c9c9c;"></span>
+              <br> Contract Hash:
+              <span id="contractHash2" style="font-size: 1.1em; color: #9c9c9c;"></span>
+            </div>
+          </div>
+        </div>
       </div>
+
     </section>
 
     <!-- <section>
@@ -445,8 +595,10 @@
     // editor.session.setMode("ace/mode/html");
     var editor = ace.edit('editor');
     var editor1 = ace.edit('editor1');
+    var editor2 = ace.edit('editor2');
     var txtAra = document.querySelector('textarea[name="editor"]');
     var txtAra1 = document.querySelector('textarea[name="editor1"]');
+    var txtAra2 = document.querySelector('textarea[name="editor2"]');
     var jsbOpts = {
       indent_size: 2
     };
@@ -456,13 +608,17 @@
     editor.getSession().setMode("ace/mode/javascript");
     editor1.setTheme("ace/theme/twilight");
     editor1.getSession().setMode("ace/mode/javascript");
+    editor2.setTheme("ace/theme/twilight");
+    editor2.getSession().setMode("ace/mode/javascript");
     // editor.renderer.setStyle("disabled", true)
     syncEditor();
     syncEditor1();
+    syncEditor2();
 
     // Main Logic
     setTimeout(formatCode, 1000); // Format sample JSON after 1 second.
     setTimeout(formatCode1, 1000);
+    setTimeout(formatCode2, 1000);
 
     // Functions
     function syncEditor() {
@@ -473,6 +629,10 @@
       editor1.getSession().setValue(txtAra1.value);
     }
 
+    function syncEditor2() {
+      editor2.getSession().setValue(txtAra2.value);
+    }
+
     function commitChanges() {
       txtAra.value = editor.getSession().getValue();
     }
@@ -481,13 +641,22 @@
       txtAra1.value = editor1.getSession().getValue();
     }
 
+    function commitChanges2() {
+      txtAra2.value = editor2.getSession().getValue();
+    }
+
     function formatCode() {
-      var session = editor.getSession();
+      let session = editor.getSession();
       session.setValue(js_beautify(session.getValue(), jsbOpts));
     }
 
     function formatCode1() {
-      var session = editor1.getSession();
+      let session = editor1.getSession();
+      session.setValue(js_beautify(session.getValue(), jsbOpts));
+    }
+
+    function formatCode2() {
+      let session = editor2.getSession();
       session.setValue(js_beautify(session.getValue(), jsbOpts));
     }
     // $(function () {

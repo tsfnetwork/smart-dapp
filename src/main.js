@@ -9,12 +9,15 @@ import {
     piggybankBytecode,
     piggybankAbi,
     erc20BaseBytecode,
-    erc20BaseAbi
+    erc20BaseAbi,
+    mintTokenBytecode,
+    mintTokenAbi
 } from './constants.json';
 
 let provider;
 let piggybankFactory;
 let erc20BaseFactory;
+let mintTokenFactory;
 
 const currentUrl = new URL(window.location.href);
 const forwarderOrigin = currentUrl.hostname === 'localhost' ?
@@ -35,11 +38,22 @@ const deployButton = document.getElementById('deployButton');
 const depositButton = document.getElementById('depositButton');
 const withdrawButton = document.getElementById('withdrawButton');
 const createToken = document.getElementById('createToken');
+const createMintableToken = document.getElementById('createMintableToken');
 const contractStatus = document.getElementById('contractStatus');
 const contractStatus1 = document.getElementById('contractStatus1');
+const contractStatus2 = document.getElementById('contractStatus2');
 const contractAddress = document.getElementById('contractAddress');
+const contractAddress1 = document.getElementById('contractAddress1');
+const contractAddress2 = document.getElementById('contractAddress2');
 const contractHash = document.getElementById('contractHash');
+const contractHash1 = document.getElementById('contractHash1');
+const contractHash2 = document.getElementById('contractHash2');
+const contractCreator = document.getElementById('contractCreator');
+const contractCreator1 = document.getElementById('contractCreator1');
+const contractCreator2 = document.getElementById('contractCreator2');
 const contractBankOutput = document.getElementById('contractBankOutput');
+const defaultTokenOutput = document.getElementById('defaultTokenOutput');
+const mintTokenOutput = document.getElementById('mintTokenOutput');
 
 // const createToken = document.getElementById('createToken');
 
@@ -57,7 +71,12 @@ const initialize = async () => {
             erc20BaseBytecode,
             provider.getSigner(),
         );
-        console.log(erc20BaseFactory);
+        mintTokenFactory = new ethers.ContractFactory(
+            mintTokenAbi,
+            mintTokenBytecode,
+            provider.getSigner(),
+        );
+        console.log(mintTokenFactory);
     } catch (error) {
         console.error(error)
     }
@@ -166,15 +185,21 @@ const initialize = async () => {
             //     contractStatus.innerHTML = 'Withdrawn'
             // }
 
-            console.log(contract)
+            console.log(contract);
         }
         createToken.onclick = async () => {
+            console.log("clcikkkk");
             let contract;
             contractStatus1.innerHTML = 'Deploying';
             try {
-                const name = 'TST';
-                const symbol = 'TST';
-                const totalSupply = 1000;
+                // const name = 'TST';
+                const name = document.getElementById("defaultName").value;
+                console.log(name);
+                const symbol = document.getElementById("defaultSymbol").value;
+                console.log(symbol);
+                const totalSupply = document.getElementById("defaultSupply").value;
+                console.log(totalSupply);
+
                 console.log("deploying pending");
                 contract = await erc20BaseFactory.deploy(name, symbol, totalSupply);
                 await contract.deployTransaction.wait();
@@ -188,6 +213,48 @@ const initialize = async () => {
             if (contract.address === undefined) {
                 return;
             }
+
+            console.log(`Contract mined! address: ${contract.address} transactionHash: ${contract.deployTransaction.hash}`);
+            contractStatus1.innerHTML = 'Deployed';
+            defaultTokenOutput.classList.remove('hidden');
+            contractAddress1.innerHTML = contract.address;
+            contractHash1.innerHTML = contract.deployTransaction.hash;
+            contractCreator1.innerHTML = contract.deployTransaction.from;
+        }
+        createMintableToken.onclick = async () => {
+            let contract;
+            contractStatus2.innerHTML = 'Deploying';
+            console.log("here");
+            try {
+                // const name = 'TST';
+                console.log("here2");
+                const name1 = document.getElementById("mintName").value;
+                console.log(name1);
+                const symbol1 = document.getElementById("mintSymbol").value;
+                console.log(symbol1);
+                const initialSupply1 = document.getElementById("mintSupply").value;
+                console.log(initialSupply1);
+
+                console.log("deploying pending");
+                contract = await mintTokenFactory.deploy(name1, symbol1, initialSupply1);
+                await contract.deployTransaction.wait();
+                console.log("deployed", contract);
+            } catch (error) {
+                contractStatus.innerHTML = 'Deployment Failed';
+                console.log("go wrong");
+                throw error;
+            }
+
+            if (contract.address === undefined) {
+                return;
+            }
+
+            console.log(`Contract mined! address: ${contract.address} transactionHash: ${contract.deployTransaction.hash}`);
+            contractStatus2.innerHTML = 'Deployed';
+            mintTokenOutput.classList.remove('hidden');
+            contractAddress2.innerHTML = contract.address;
+            contractHash2.innerHTML = contract.deployTransaction.hash;
+            contractCreator2.innerHTML = contract.deployTransaction.from;
         }
     }
 
