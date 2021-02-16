@@ -6,6 +6,9 @@ import {
     ethers
 } from 'ethers';
 import {
+    utils
+} from 'ethers';
+import {
     piggybankBytecode,
     piggybankAbi,
     erc20BaseBytecode,
@@ -197,7 +200,7 @@ const initialize = async () => {
                 console.log(name);
                 const symbol = document.getElementById("defaultSymbol").value;
                 console.log(symbol);
-                const totalSupply = document.getElementById("defaultSupply").value;
+                const totalSupply = parseInt(document.getElementById("defaultSupply").value);
                 console.log(totalSupply);
 
                 console.log("deploying pending");
@@ -232,8 +235,16 @@ const initialize = async () => {
                 console.log(name1);
                 const symbol1 = document.getElementById("mintSymbol").value;
                 console.log(symbol1);
-                const initialSupply1 = document.getElementById("mintSupply").value;
+                // const initialSupply1 = parseInt(document.getElementById("mintSupply").value) * 10e17;
+                const initsup = document.getElementById("mintSupply").value;
+                console.log(initsup);
+                // const wei = utils.parseEther(initsup);
+                // const initialSupply1 = wei.toString(10);
+
+                const initialSupply1 = ethers.utils.parseUnits(initsup, 18).toString();
                 console.log(initialSupply1);
+                // const initialSupply1 = ethers.utils.formatUnits( initsup, 0);
+                console.log(initialSupply1, typeof initialSupply1);
 
                 console.log("deploying pending");
                 contract = await mintTokenFactory.deploy(name1, symbol1, initialSupply1);
@@ -270,7 +281,6 @@ const initialize = async () => {
             } else {
                 accountsDiv.innerHTML = "Unlock Metamask !"
             }
-
         }
 
         if (isMetaMaskConnected()) {
@@ -334,3 +344,12 @@ const initialize = async () => {
     }
 }
 window.addEventListener('DOMContentLoaded', initialize);
+$("select#inputGroupSelect01").change(() => {
+    console.log("You have selected " + $("select#inputGroupSelect01").val());
+    let option1 = $("select#inputGroupSelect01").val();
+    if (option1 === "default") {
+        console.log("default");
+    } else if (option1 === "mintable") {
+        console.log("mintable");
+    }
+});
