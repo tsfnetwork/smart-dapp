@@ -57,6 +57,8 @@ const contractCreator2 = document.getElementById('contractCreator2');
 const contractBankOutput = document.getElementById('contractBankOutput');
 const defaultTokenOutput = document.getElementById('defaultTokenOutput');
 const mintTokenOutput = document.getElementById('mintTokenOutput');
+const defaultErc20Section = document.getElementById('defaultToken');
+const mintableTokenSection = document.getElementById('mintableToken');
 
 // const createToken = document.getElementById('createToken');
 
@@ -346,10 +348,15 @@ const initialize = async () => {
 window.addEventListener('DOMContentLoaded', initialize);
 $("select#inputGroupSelect01").change(() => {
     console.log("You have selected " + $("select#inputGroupSelect01").val());
-    let option1 = $("select#inputGroupSelect01").val();
-    if (option1 === "default") {
+    let option = $("select#inputGroupSelect01").val();
+    if (option === "default") {
         console.log("default");
-    } else if (option1 === "mintable") {
+        defaultErc20Section.classList.remove("hidden");
+        mintableTokenSection.classList.add("hidden");
+    } else if (option === "mintable") {
         console.log("mintable");
+        mintableTokenSection.classList.remove("hidden");
+        defaultErc20Section.classList.add("hidden");
     }
+
 });
