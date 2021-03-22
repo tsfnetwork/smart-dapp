@@ -202,9 +202,10 @@ const initialize = async () => {
                 console.log(name);
                 const symbol = document.getElementById("defaultSymbol").value;
                 console.log(symbol);
-                const totalSupply = parseInt(document.getElementById("defaultSupply").value);
+                const totSup = document.getElementById("defaultSupply").value;
+                console.log(totSup);
+                const totalSupply = ethers.utils.parseUnits(totSup, 18).toString();
                 console.log(totalSupply);
-
                 console.log("deploying pending");
                 contract = await erc20BaseFactory.deploy(name, symbol, totalSupply);
                 await contract.deployTransaction.wait();
