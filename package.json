@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "A simple dapp used in MetaMask e2e tests.",
   "scripts": {
-    "deploy": "./deploy.sh",
+    "deploy": "aws s3 sync dist/ s3://tsf-smartgenerator.com --region eu-central-1",
     "lint": "eslint . --ext js,json && prettier ./src -c",
     "lint:fix": "eslint . --fix --ext js,json && prettier ./src -c --write",
     "start": "webpack-dev-server",
