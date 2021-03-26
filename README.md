@@ -10,7 +10,7 @@ To clone and run this repository you'll need Git and Node.js (which comes with n
 
 ```shell
 # Clone this repository
-git clone https://github.com/tsfnetwork/libertas-tsf-wallet
+git clone https://github.com/tsfnetwork/smart-dapp
 # Go into the repository
 cd libertas-tsf-wallet
 # Install dependencies
