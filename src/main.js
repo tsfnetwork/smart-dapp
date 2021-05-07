@@ -88,6 +88,7 @@ const initialize = async () => {
 
 
     let onboarding;
+    console.log(MetaMaskOnboarding);
     try {
         onboarding = new MetaMaskOnboarding({
             forwarderOrigin
@@ -95,7 +96,8 @@ const initialize = async () => {
     } catch (error) {
         console.error(error)
     }
-
+    console.log("forwarderOrigin", forwarderOrigin);    
+    console.log("onboarding", onboarding);
     let accounts;
     let accountButtonsInitialized = false;
     const isMetaMaskConnected = () => accounts && accounts.length > 0;
