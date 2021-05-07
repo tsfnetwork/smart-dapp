@@ -1,35 +1,22 @@
-# MetaMask Test Dapp
+# MetaMask Smart Dapp
 
-This is a simple test dapp for use in MetaMask e2e tests and manual QA.
+Smart Generator allows you to create new default tokens or mint/burn tokens.
 
-Currently hosted [here](https://metamask.github.io/test-dapp/).
+Another smart contract will be added in the future which will provide more options.
 
-## Usage
+## To Use
 
-If you wish to use this dapp in your e2e tests, install this package and set up a script of e.g. the following form:
+To clone and run this repository you'll need Git and Node.js (which comes with npm) installed on your computer. From your command line:
 
 ```shell
-static-server node_modules/@metamask/test-dapp/dist --port 9011
-```
-
-## Development
-
-### Requires Manual Deployment
-
-After merging or pushing to `master`, please run `yarn deploy` in the package root directory if the contents of the `dist/` directory have changed.
-
-### Elements Must Be Selectable by XPath
-
-Consider that elements must be selectable by XPath. This means that appearances can be misleading.
-For example, consider this old bug:
-
-```html
-              <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokensWithoutGas" disabled>Approve Tokens
-                Without Gas</button>
-```
-
-This appears on the page as `Approve Tokens Without Gas`. In reality, the value included the whitespace on the second line, and caused XPath queries for the intended value to fail:
-
-```html
-Approve Tokens                Without Gas
+# Clone this repository
+git clone https://github.com/tsfnetwork/smart-dapp
+# Go into the repository
+cd libertas-tsf-wallet
+# Install dependencies
+npm install
+# Run the app
+npm start
+# Build for production
+npm run build
 ```
