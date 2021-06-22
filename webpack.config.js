@@ -8,7 +8,7 @@ const DIST = path.resolve(__dirname, 'dist')
 
 module.exports = {
   mode: 'development',
-  entry: './src/main.js',
+  entry: './src/connect.js',
   output: {
     filename: 'bundle.js',
     path: DIST,

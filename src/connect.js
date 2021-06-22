@@ -1,3 +1,22 @@
+import {
+    encrypt
+} from 'eth-sig-util';
+import MetaMaskOnboarding from '@metamask/onboarding';
+import {
+    ethers
+} from 'ethers';
+import {
+    utils
+} from 'ethers';
+import {
+    piggybankBytecode,
+    piggybankAbi,
+    erc20BaseBytecode,
+    erc20BaseAbi,
+    mintTokenBytecode,
+    mintTokenAbi
+} from './constants.json';
+
 window.endpoints = {
     // cryptClaim: 'claim/encrypt'
 }
@@ -41,7 +60,7 @@ function load() {
 let onboarding;
 try {
     onboarding = new MetaMaskOnboarding({
-        forwarderOrigin: 'http://localhost:3000'
+        forwarderOrigin: 'http://localhost:9010'
     })
 } catch (error) {
     console.error(error)
@@ -54,7 +73,7 @@ var installBtn = $("#connMetamask");
 
 window.callProvider = async () => {
     // const config = await window.config;
-    const contractAddress = defaultClaimContractAddress;
+    // const contractAddress = defaultClaimContractAddress;
     const metamask = window.ethereum;
     const metamaskAccounts = metamask ? await metamask.request({
         method: 'eth_accounts'
@@ -63,13 +82,12 @@ window.callProvider = async () => {
     if (metamaskIsUnlocked) {
         const provider = new ethers.providers.Web3Provider(metamask);
         const signer = provider.getSigner(0);
-        const claimContract = new ethers.Contract(contractAddress, abi, signer);
+        // const claimContract = new ethers.Contract(contractAddress, abi, signer);
         let account = metamaskAccounts[0];
 
         return {
             provider,
             signer,
-            claimContract,
             account,
             isMetamask: true,
             connected: true
@@ -85,20 +103,18 @@ window.callProvider = async () => {
             if (pKey == null) {
                 return {
                     provider: {},
-                    claimContract: {},
                     account: "",
                     isMetamask: false,
                     connected: false
                 }
             }
             const wallet = new ethers.Wallet(pKey, provider);
-            const claimContract = new ethers.Contract(contractAddress, abi, wallet);
+            // const claimContract = new ethers.Contract(contractAddress, abi, wallet);
             const walletAddress = new ethers.Wallet(pKey);
             account = walletAddress.address;
 
             return {
                 provider,
-                claimContract,
                 account,
                 isMetamask: false,
                 connected: true
@@ -322,6 +338,12 @@ $(document).ready(() => {
             return await response.json();
         }
     }
+    $(".btn-check-perrm").click(() => {
+        setTimeout(() => $(".modal.modal-main-key").removeClass('modalAnimate'), 100);
+        setTimeout(() => $(".btn-pop-up").removeClass('active'), 1000);
+        setTimeout(() => $(".yes-reply").removeClass('active'), 1000);
+        setTimeout(() => $(".modal-main-key").addClass("is-active"), 1000);
+    });
     $('#globalKeyCheck').click(async (e) => {
         e.preventDefault();
         var pKeyVal = $('#globalKey').val();

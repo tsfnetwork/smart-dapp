@@ -1,0 +1,1206 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>TSF TOKEN GENERATOR</title>
+  <link rel="icon" type="image/svg" href="metamask-fox.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" type="text/css" />
+</head>
+
+<body>
+  <main class="container shdiv">
+    <header>
+      <div id="logo-container">
+        <!-- <h1 id="logo-text" class="text-center">
+          Create ERC20 Token on TSF Network
+        </h1> -->
+
+        <img id="mm-logo" src="Sg_bg.png" />
+      </div>
+    </header>
+    <section>
+      <div class="row">
+        <div class="col-xl-12 text-center">
+          <button class="btn btn-primary btn-lg btn-block mb-3" id="connectButton" disabled>
+            Connect
+          </button>
+        </div>
+      </div>
+      <p class="mt20 text-center" id="notice">Notice: When you see in Network "TSF Mainnet", you are on the right network.</p>
+
+      <div class="row">
+
+        <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+          <h3 class="card-title status">
+            Network &nbsp;:
+          </h3>
+        </div>
+        <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
+          <span id="network"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+          <h3 class="card-title status">
+            Account :
+          </h3>
+        </div>
+        <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
+          <span id="accounts"></span>
+        </div>
+      </div>
+
+
+
+      <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="network"></button>
+          <br>
+          <button class="btn btn-primary btn-lg btn-block mb-3" id="accounts"></button> -->
+
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <p class="info-text alert alert-primary">
+            Network:
+            <br>
+            <span id="network"></span>
+          </p>
+        </div> -->
+
+      <!-- <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+          <p class="info-text alert alert-secondary">
+            ChainId:
+            <span id="chainId"></span>
+          </p>
+        </div> -->
+
+      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+        <p class="info-text alert alert-success">
+          Accounts:
+          <br>
+          <span id="accounts"></span>
+        </p>
+      </div> -->
+      <!-- </div> -->
+    </section>
+
+    <section id="selectContract">
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-10 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend mh50">
+                  <label class="input-group-text" for="inputGroupSelect01">Choose Smart Contract To Deploy</label>
+                </div>
+                <select class="custom-select mh50" id="inputGroupSelect01">
+                  <option selected>Select Contract</option>
+                  <option value="default">Default TSF20 Token</option>
+                  <option value="mintable">Mintable/Burnable Token</option>
+                  <!-- <option value="3">Three</option> -->
+                </select>
+              </div>
+
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="connectButton" disabled>
+                Connect
+              </button> -->
+
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="getAccounts">
+                eth_accounts
+              </button>
+
+              <p class="info-text alert alert-secondary">
+                eth_accounts result:
+                <span id="getAccountsResult"></span>
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section>
+      <div class="row d-flex justify-content-center">
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">
+                Permissions Actions
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="requestPermissions">
+                Request Permissions
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="getPermissions">
+                Get Permissions
+              </button>
+
+              <p class="info-text alert alert-secondary">
+                Permissions result:
+                <span id="permissionsResult"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section id="smartBank" class="hidden">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract :
+                <strong>My Smart Bank</strong>
+              </h4>
+              <p></p>
+              <div class="ace-holder">
+                <textarea name="editor">
+                  contract PiggyBank { uint private balance; address public owner; function PiggyBank() public { owner = msg.sender; balance
+                  = 0; } function deposit() public payable returns (uint) { balance += msg.value; return balance; } function
+                  withdraw(uint withdrawAmount) public returns (uint remainingBal) { require(msg.sender == owner); balance
+                  -= withdrawAmount; msg.sender.transfer(withdrawAmount); return balance; } }
+                </textarea>
+                <div id="editor"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Deploy :
+                <strong>My Smart Bank</strong>
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="deployButton">
+                Deploy Contract
+              </button>
+              <p class="info-text alert alert-secondary">
+                Deployment Status:
+                <span id="contractStatus"></span>
+              </p>
+              <!-- <p id="deployedBank" class="info-text alert">
+                Contract Address:
+                <br>
+                <span id="contractAddress" style="font-size: 0.7em;color:#9c9c9c;"></span>
+                <br> Contract Creator:
+                <br>
+                <span id="contractCreator" style="font-size: 0.7em; color: #9c9c9c;"></span>
+                <br> Contract Hash:
+                <span id="contractHash" style="font-size: 0.7em; color: #9c9c9c;"></span>
+                <br>
+              </p> -->
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="depositButton" disabled>
+                Deposit
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="withdrawButton" disabled>
+                Withdraw
+              </button>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 align-items-stretch hidden" id="contractBankOutput">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract
+                <strong>Output :</strong>
+              </h4>
+              Contract Address:
+
+              <span id="contractAddress" style="font-size: 1.1em;color:#9c9c9c;"></span>
+              <br> Contract Creator:
+
+              <span id="contractCreator" style="font-size: 1.1em; color: #9c9c9c;"></span>
+              <br> Contract Hash:
+              <span id="contractHash" style="font-size: 1.1em; color: #9c9c9c;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="defaultToken" class="hidden">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract :
+                <strong>Deafault TSF20 Token</strong>
+              </h4>
+              <p></p>
+              <div class="ace-holder">
+                <!-- <textarea name="editor1">
+                  pragma solidity 0.6.7; interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token,
+                  bytes _extraData) external; } contract owned{ address public owner; constructor ()public{ owner = msg.sender;
+                  } function changeOwner(address newOwner) public onlyOwner{ owner = newOwner; } modifier onlyOwner{ require(msg.sender
+                  == owner); _; } } contract Erc20Token { function totalSupply() public view returns (uint); function balanceOf(address
+                  tokenOwner) public view returns (uint balance); function allowance(address tokenOwner, address spender)
+                  public view returns (uint remaining); function transfer(address to, uint tokens) public returns (bool success);
+                  function approve(address spender, uint tokens) public returns (bool success); function transferFrom(address
+                  from, address to, uint tokens) public returns (bool success); event Transfer(address indexed from, address
+                  indexed to, uint tokens); event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+                  } contract Erc20TokenNamePlaceholder is Erc20Token, owned { string public name; string public symbol; uint
+                  public decimals; uint _totalSupply; mapping(address => uint) _balanceOf; mapping(address => mapping(address
+                  => uint)) _allowance; event Burn(address indexed from, uint amount); event Mint(address indexed from, uint
+                  amount); constructor(string tokenName, string tokenSymbol, uint tokenDecimals, uint tokenTotalSupply) public
+                  { name = tokenName; symbol = tokenSymbol; decimals = tokenDecimals; _totalSupply = tokenTotalSupply * 10**uint(decimals);
+                  _balanceOf[msg.sender] = _totalSupply; } function totalSupply() public view returns (uint){ return _totalSupply;
+                  } function balanceOf(address tokenOwner) public view returns (uint balance){ return _balanceOf[tokenOwner];
+                  } function allowance(address tokenOwner, address spender) public view returns (uint remaining){ return
+                  _allowance[tokenOwner][spender]; } function transfer(address to, uint value) public returns (bool success){
+                  _transfer(msg.sender, to, value); return true; } function transferFrom(address from, address to, uint value)
+                  public returns (bool success){ require(_allowance[from][msg.sender] >= value); _allowance[from][msg.sender]
+                  -= value; _transfer(from, to, value); return true; } function approve(address spender, uint value) public
+                  returns (bool succes) { _allowance[msg.sender][spender] = value; return true; } function approveAndCall(address
+                  spender, uint value, bytes extraData) public returns (bool success){ tokenRecipient _spender = tokenRecipient(spender);
+                  if(approve(spender, value)){ _spender.receiveApproval(msg.sender, value, this, extraData); return true;
+                  } } function burnFrom(address from, uint amount) public onlyOwner returns(bool success) { require(_balanceOf[from]
+                  >= amount); require(_balanceOf[from] - amount
+                  <=_ balanceOf[from]); if(owner !=f rom){ require(_allowance[msg.sender][from]>= amount); } _balanceOf[from] -= amount; _allowance[msg.sender][from] -= amount; _totalSupply -= amount;
+                    emit Burn(from, amount); return true; } function mintTo(address to, uint amount) public onlyOwner returns(bool
+                    success){ require(_balanceOf[to] + amount >= _balanceOf[to]); require(_totalSupply + amount >= _totalSupply);
+                    _balanceOf[to] += amount; _totalSupply += amount; emit Mint(to, amount); return true; } function() public
+                    payable { require(false); } function _transfer(address from, address to, uint value) internal{ require(to
+                    != 0x0); require(_balanceOf[from] >= value); require(_balanceOf[to] + value >= _balanceOf[to]); uint
+                    previousBalance = _balanceOf[from] + _balanceOf[to]; _balanceOf[from] -= value; _balanceOf[to] += value;
+                    emit Transfer(from, to, value); assert(_balanceOf[from] + _balanceOf[to] == previousBalance); } }
+                </textarea> -->
+                <textarea name="editor1">
+                  pragma solidity >=0.6.0 <0.8.0;
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address payable) {
+        return msg.sender;
+    }
+    function _msgData() internal view virtual returns (bytes memory) {
+        this;
+        return msg.data;
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+interface IERC20 {
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address recipient, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+pragma solidity >=0.6.0 <0.8.0;
+library SafeMath {
+
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+
+        return c;
+    }
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        return sub(a, b, "SafeMath: subtraction overflow");
+    }
+    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b <= a, errorMessage);
+        uint256 c = a - b;
+        return c;
+    }
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        if (a == 0) {
+            return 0;
+        }
+        uint256 c = a * b;
+        require(c / a == b, "SafeMath: multiplication overflow");
+        return c;
+    }
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        return div(a, b, "SafeMath: division by zero");
+    }
+    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b > 0, errorMessage);
+        uint256 c = a / b;
+        return c;
+    }
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        return mod(a, b, "SafeMath: modulo by zero");
+    }
+    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b != 0, errorMessage);
+        return a % b;
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+contract ERC20 is Context, IERC20 {
+    using SafeMath for uint256;
+    mapping (address => uint256) private _balances;
+    mapping (address => mapping (address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+    string private _name;
+    string private _symbol;
+    uint8 private _decimals;
+    constructor (string memory name_, string memory symbol_) public {
+        _name = name_;
+        _symbol = symbol_;
+        _decimals = 18;
+    }
+    function name() public view returns (string memory) {
+        return _name;
+    }
+
+    function symbol() public view returns (string memory) {
+        return _symbol;
+    }
+
+    function decimals() public view returns (uint8) {
+        return _decimals;
+    }
+
+    function totalSupply() public view override returns (uint256) {
+        return _totalSupply;
+    }
+    function balanceOf(address account) public view override returns (uint256) {
+        return _balances[account];
+    }
+    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+        _transfer(_msgSender(), recipient, amount);
+        return true;
+    }
+    function allowance(address owner, address spender) public view virtual override returns (uint256) {
+        return _allowances[owner][spender];
+    }
+    function approve(address spender, uint256 amount) public virtual override returns (bool) {
+        _approve(_msgSender(), spender, amount);
+        return true;
+    }
+    function transferFrom(address sender, address recipient, uint256 amount) public virtual override returns (bool) {
+        _transfer(sender, recipient, amount);
+        _approve(sender, _msgSender(), _allowances[sender][_msgSender()].sub(amount, "ERC20: transfer amount exceeds allowance"));
+        return true;
+    }
+    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
+        return true;
+    }
+    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender].sub(subtractedValue, "ERC20: decreased allowance below zero"));
+        return true;
+    }
+    function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+        require(sender != address(0), "ERC20: transfer from the zero address");
+        require(recipient != address(0), "ERC20: transfer to the zero address");
+        _beforeTokenTransfer(sender, recipient, amount);
+        _balances[sender] = _balances[sender].sub(amount, "ERC20: transfer amount exceeds balance");
+        _balances[recipient] = _balances[recipient].add(amount);
+        emit Transfer(sender, recipient, amount);
+    }
+    function _mint(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: mint to the zero address");
+        _beforeTokenTransfer(address(0), account, amount);
+        _totalSupply = _totalSupply.add(amount);
+        _balances[account] = _balances[account].add(amount);
+        emit Transfer(address(0), account, amount);
+    }
+    function _burn(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: burn from the zero address");
+        _beforeTokenTransfer(account, address(0), amount);
+        _balances[account] = _balances[account].sub(amount, "ERC20: burn amount exceeds balance");
+        _totalSupply = _totalSupply.sub(amount);
+        emit Transfer(account, address(0), amount);
+    }
+    function _approve(address owner, address spender, uint256 amount) internal virtual {
+        require(owner != address(0), "ERC20: approve from the zero address");
+        require(spender != address(0), "ERC20: approve to the zero address");
+        _allowances[owner][spender] = amount;
+        emit Approval(owner, spender, amount);
+    }
+    function _setupDecimals(uint8 decimals_) internal {
+        _decimals = decimals_;
+    }
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
+}
+pragma solidity 0.6.7;
+contract ERC20Base is ERC20 {
+    constructor(string memory name, string memory symbol, uint256 totalSupply) public ERC20 (name, symbol) {
+        _mint(_msgSender(), totalSupply);
+    }
+}
+                </textarea>
+                <div id="editor1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Deploy TSF20 Default Token
+              </h4>
+
+              <!-- <p class="info-text alert alert-success">
+                Token:
+                <span id="tokenAddress"></span>
+              </p> -->
+
+              <a href="javascript:void(0)" type="button" class="btn btn-primary btn-lg btn-block mb-3" id="fillForm">
+                Fill the following form and click CREATE TOKEN
+
+              </a>
+
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="name">Name</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TECOS" aria-label="e.g. TECOS" aria-describedby="name" id="defaultName">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="symbol">Symbol</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TCS" aria-label="e.g. TCS" aria-describedby="symbol" id="defaultSymbol">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="decimals">Decimals</span>
+                  </div>
+                  <input type="text" class="form-control" value="18" aria-label="e.g. 18" aria-describedby="decimals" disabled>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="supply">Total Supply</span>
+                  </div>
+                  <input type="number" class="form-control" placeholder="e.g. 100000" aria-label="e.g. 100000" aria-describedby="supply" id="defaultSupply">
+                </div>
+              </form>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="createToken">
+                Create Token
+              </button>
+              <p class="info-text alert alert-secondary">
+                Deployment Status:
+                <span id="contractStatus1"></span>
+              </p>
+
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokens" disabled>
+                Transfer Tokens
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokens" disabled>
+                Approve Tokens
+              </button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 align-items-stretch hidden" id="defaultTokenOutput">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract
+                <strong>Output :</strong>
+              </h4>
+              Contract Address:
+
+              <span id="contractAddress1" style="font-size: 1.1em;color:#9c9c9c;"></span>
+              <br> Contract Creator:
+
+              <span id="contractCreator1" style="font-size: 1.1em; color: #9c9c9c;"></span>
+              <br> Contract Hash:
+              <span id="contractHash1" style="font-size: 1.1em; color: #9c9c9c;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <section id="mintableToken" class="hidden">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract :
+                <strong>Mint/Burn TSF20 Token</strong>
+              </h4>
+              <p></p>
+              <div class="ace-holder">
+                <textarea name="editor2">
+                  pragma solidity >=0.6.0 <0.8.0;
+library EnumerableSet {
+    struct Set {
+        bytes32[] _values;
+        mapping (bytes32 => uint256) _indexes;
+    }
+    function _add(Set storage set, bytes32 value) private returns (bool) {
+        if (!_contains(set, value)) {
+            set._values.push(value);
+            set._indexes[value] = set._values.length;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function _remove(Set storage set, bytes32 value) private returns (bool) {
+        uint256 valueIndex = set._indexes[value];
+        if (valueIndex != 0) { 
+            uint256 toDeleteIndex = valueIndex - 1;
+            uint256 lastIndex = set._values.length - 1;
+            bytes32 lastvalue = set._values[lastIndex];
+            set._values[toDeleteIndex] = lastvalue;
+            set._indexes[lastvalue] = toDeleteIndex + 1; 
+            set._values.pop();
+            delete set._indexes[value];
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function _contains(Set storage set, bytes32 value) private view returns (bool) {
+        return set._indexes[value] != 0;
+    }
+    function _length(Set storage set) private view returns (uint256) {
+        return set._values.length;
+    }
+    function _at(Set storage set, uint256 index) private view returns (bytes32) {
+        require(set._values.length > index, "EnumerableSet: index out of bounds");
+        return set._values[index];
+    }
+    struct Bytes32Set {
+        Set _inner;
+    }
+    function add(Bytes32Set storage set, bytes32 value) internal returns (bool) {
+        return _add(set._inner, value);
+    }
+    function remove(Bytes32Set storage set, bytes32 value) internal returns (bool) {
+        return _remove(set._inner, value);
+    }
+    function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {
+        return _contains(set._inner, value);
+    }
+    function length(Bytes32Set storage set) internal view returns (uint256) {
+        return _length(set._inner);
+    }
+    function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {
+        return _at(set._inner, index);
+    }
+    struct AddressSet {
+        Set _inner;
+    }
+    function add(AddressSet storage set, address value) internal returns (bool) {
+        return _add(set._inner, bytes32(uint256(value)));
+    }
+    function remove(AddressSet storage set, address value) internal returns (bool) {
+        return _remove(set._inner, bytes32(uint256(value)));
+    }
+    function contains(AddressSet storage set, address value) internal view returns (bool) {
+        return _contains(set._inner, bytes32(uint256(value)));
+    }
+    function length(AddressSet storage set) internal view returns (uint256) {
+        return _length(set._inner);
+    }
+    function at(AddressSet storage set, uint256 index) internal view returns (address) {
+        return address(uint256(_at(set._inner, index)));
+    }
+    struct UintSet {
+        Set _inner;
+    }
+    function add(UintSet storage set, uint256 value) internal returns (bool) {
+        return _add(set._inner, bytes32(value));
+    }
+    function remove(UintSet storage set, uint256 value) internal returns (bool) {
+        return _remove(set._inner, bytes32(value));
+    }
+    function contains(UintSet storage set, uint256 value) internal view returns (bool) {
+        return _contains(set._inner, bytes32(value));
+    }
+    function length(UintSet storage set) internal view returns (uint256) {
+        return _length(set._inner);
+    }
+    function at(UintSet storage set, uint256 index) internal view returns (uint256) {
+        return uint256(_at(set._inner, index));
+    }
+}
+pragma solidity >=0.6.2 <0.8.0;
+library Address {
+    function isContract(address account) internal view returns (bool) {
+        uint256 size;
+        // solhint-disable-next-line no-inline-assembly
+        assembly { size := extcodesize(account) }
+        return size > 0;
+    }
+    function sendValue(address payable recipient, uint256 amount) internal {
+        require(address(this).balance >= amount, "Address: insufficient balance");
+        (bool success, ) = recipient.call{ value: amount }("");
+        require(success, "Address: unable to send value, recipient may have reverted");
+    }
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
+      return functionCall(target, data, "Address: low-level call failed");
+    }
+    function functionCall(address target, bytes memory data, string memory errorMessage) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, errorMessage);
+    }
+    function functionCallWithValue(address target, bytes memory data, uint256 value) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+    }
+    function functionCallWithValue(address target, bytes memory data, uint256 value, string memory errorMessage) internal returns (bytes memory) {
+        require(address(this).balance >= value, "Address: insufficient balance for call");
+        require(isContract(target), "Address: call to non-contract");
+        (bool success, bytes memory returndata) = target.call{ value: value }(data);
+        return _verifyCallResult(success, returndata, errorMessage);
+    }
+    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
+        return functionStaticCall(target, data, "Address: low-level static call failed");
+    }
+    function functionStaticCall(address target, bytes memory data, string memory errorMessage) internal view returns (bytes memory) {
+        require(isContract(target), "Address: static call to non-contract");
+        (bool success, bytes memory returndata) = target.staticcall(data);
+        return _verifyCallResult(success, returndata, errorMessage);
+    }
+    function _verifyCallResult(bool success, bytes memory returndata, string memory errorMessage) private pure returns(bytes memory) {
+        if (success) {
+            return returndata;
+        } else {
+            if (returndata.length > 0) {
+                assembly {
+                    let returndata_size := mload(returndata)
+                    revert(add(32, returndata), returndata_size)
+                }
+            } else {
+                revert(errorMessage);
+            }
+        }
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address payable) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes memory) {
+        this;
+        return msg.data;
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+abstract contract AccessControl is Context {
+    using EnumerableSet for EnumerableSet.AddressSet;
+    using Address for address;
+    struct RoleData {
+        EnumerableSet.AddressSet members;
+        bytes32 adminRole;
+    }
+    mapping (bytes32 => RoleData) private _roles;
+    bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
+    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);
+    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);
+    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);
+    function hasRole(bytes32 role, address account) public view returns (bool) {
+        return _roles[role].members.contains(account);
+    }
+    function getRoleMemberCount(bytes32 role) public view returns (uint256) {
+        return _roles[role].members.length();
+    }
+    function getRoleMember(bytes32 role, uint256 index) public view returns (address) {
+        return _roles[role].members.at(index);
+    }
+    function getRoleAdmin(bytes32 role) public view returns (bytes32) {
+        return _roles[role].adminRole;
+    }
+    function grantRole(bytes32 role, address account) public virtual {
+        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to grant");
+
+        _grantRole(role, account);
+    }
+    function revokeRole(bytes32 role, address account) public virtual {
+        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to revoke");
+
+        _revokeRole(role, account);
+    }
+    function renounceRole(bytes32 role, address account) public virtual {
+        require(account == _msgSender(), "AccessControl: can only renounce roles for self");
+
+        _revokeRole(role, account);
+    }
+    function _setupRole(bytes32 role, address account) internal virtual {
+        _grantRole(role, account);
+    }
+    function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {
+        emit RoleAdminChanged(role, _roles[role].adminRole, adminRole);
+        _roles[role].adminRole = adminRole;
+    }
+
+    function _grantRole(bytes32 role, address account) private {
+        if (_roles[role].members.add(account)) {
+            emit RoleGranted(role, account, _msgSender());
+        }
+    }
+
+    function _revokeRole(bytes32 role, address account) private {
+        if (_roles[role].members.remove(account)) {
+            emit RoleRevoked(role, account, _msgSender());
+        }
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+interface IERC20 {
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address recipient, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+pragma solidity >=0.6.0 <0.8.0;
+library SafeMath {
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+        return c;
+    }
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        return sub(a, b, "SafeMath: subtraction overflow");
+    }
+    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b <= a, errorMessage);
+        uint256 c = a - b;
+        return c;
+    }
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        if (a == 0) {
+            return 0;
+        }
+        uint256 c = a * b;
+        require(c / a == b, "SafeMath: multiplication overflow");
+        return c;
+    }
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        return div(a, b, "SafeMath: division by zero");
+    }
+    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b > 0, errorMessage);
+        uint256 c = a / b;
+        return c;
+    }
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        return mod(a, b, "SafeMath: modulo by zero");
+    }
+    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b != 0, errorMessage);
+        return a % b;
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+contract ERC20 is Context, IERC20 {
+    using SafeMath for uint256;
+    mapping (address => uint256) private _balances;
+    mapping (address => mapping (address => uint256)) private _allowances;
+    uint256 private _totalSupply;
+    string private _name;
+    string private _symbol;
+    uint8 private _decimals;
+    constructor (string memory name_, string memory symbol_) public {
+        _name = name_;
+        _symbol = symbol_;
+        _decimals = 18;
+    }
+    function name() public view returns (string memory) {
+        return _name;
+    }
+    function symbol() public view returns (string memory) {
+        return _symbol;
+    }
+    function decimals() public view returns (uint8) {
+        return _decimals;
+    }
+    function totalSupply() public view override returns (uint256) {
+        return _totalSupply;
+    }
+    function balanceOf(address account) public view override returns (uint256) {
+        return _balances[account];
+    }
+    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+        _transfer(_msgSender(), recipient, amount);
+        return true;
+    }
+    function allowance(address owner, address spender) public view virtual override returns (uint256) {
+        return _allowances[owner][spender];
+    }
+    function approve(address spender, uint256 amount) public virtual override returns (bool) {
+        _approve(_msgSender(), spender, amount);
+        return true;
+    }
+    function transferFrom(address sender, address recipient, uint256 amount) public virtual override returns (bool) {
+        _transfer(sender, recipient, amount);
+        _approve(sender, _msgSender(), _allowances[sender][_msgSender()].sub(amount, "ERC20: transfer amount exceeds allowance"));
+        return true;
+    }
+    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
+        return true;
+    }
+    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender].sub(subtractedValue, "ERC20: decreased allowance below zero"));
+        return true;
+    }
+    function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+        require(sender != address(0), "ERC20: transfer from the zero address");
+        require(recipient != address(0), "ERC20: transfer to the zero address");
+        _beforeTokenTransfer(sender, recipient, amount);
+        _balances[sender] = _balances[sender].sub(amount, "ERC20: transfer amount exceeds balance");
+        _balances[recipient] = _balances[recipient].add(amount);
+        emit Transfer(sender, recipient, amount);
+    }
+    function _mint(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: mint to the zero address");
+        _beforeTokenTransfer(address(0), account, amount);
+        _totalSupply = _totalSupply.add(amount);
+        _balances[account] = _balances[account].add(amount);
+        emit Transfer(address(0), account, amount);
+    }
+    function _burn(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: burn from the zero address");
+        _beforeTokenTransfer(account, address(0), amount);
+        _balances[account] = _balances[account].sub(amount, "ERC20: burn amount exceeds balance");
+        _totalSupply = _totalSupply.sub(amount);
+        emit Transfer(account, address(0), amount);
+    }
+    function _approve(address owner, address spender, uint256 amount) internal virtual {
+        require(owner != address(0), "ERC20: approve from the zero address");
+        require(spender != address(0), "ERC20: approve to the zero address");
+        _allowances[owner][spender] = amount;
+        emit Approval(owner, spender, amount);
+    }
+    function _setupDecimals(uint8 decimals_) internal {
+        _decimals = decimals_;
+    }
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
+}
+pragma solidity >=0.6.0 <0.8.0;
+abstract contract ERC20Burnable is Context, ERC20 {
+    using SafeMath for uint256;
+    function burn(uint256 amount) public virtual {
+        _burn(_msgSender(), amount);
+    }
+    function burnFrom(address account, uint256 amount) public virtual {
+        uint256 decreasedAllowance = allowance(account, _msgSender()).sub(amount, "ERC20: burn amount exceeds allowance");
+        _approve(account, _msgSender(), decreasedAllowance);
+        _burn(account, amount);
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+abstract contract Pausable is Context {
+    event Paused(address account);
+    event Unpaused(address account);
+    bool private _paused;
+    constructor () internal {
+        _paused = false;
+    }
+    function paused() public view returns (bool) {
+        return _paused;
+    }
+    modifier whenNotPaused() {
+        require(!_paused, "Pausable: paused");
+        _;
+    }
+    modifier whenPaused() {
+        require(_paused, "Pausable: not paused");
+        _;
+    }
+    function _pause() internal virtual whenNotPaused {
+        _paused = true;
+        emit Paused(_msgSender());
+    }
+    function _unpause() internal virtual whenPaused {
+        _paused = false;
+        emit Unpaused(_msgSender());
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+abstract contract ERC20Pausable is ERC20, Pausable {
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
+        super._beforeTokenTransfer(from, to, amount);
+        require(!paused(), "ERC20Pausable: token transfer while paused");
+    }
+}
+pragma solidity >=0.6.0 <0.8.0;
+contract ERC20PresetMinterPauser is Context, AccessControl, ERC20Burnable, ERC20Pausable {
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+     * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE` and `PAUSER_ROLE` to the
+ 
+    constructor(string memory name, string memory symbol) public ERC20(name, symbol) {
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        _setupRole(MINTER_ROLE, _msgSender());
+        _setupRole(PAUSER_ROLE, _msgSender());
+    }
+    function mint(address to, uint256 amount) public virtual {
+        require(hasRole(MINTER_ROLE, _msgSender()), "ERC20PresetMinterPauser: must have minter role to mint");
+        _mint(to, amount);
+    }
+    function pause() public virtual {
+        require(hasRole(PAUSER_ROLE, _msgSender()), "ERC20PresetMinterPauser: must have pauser role to pause");
+        _pause();
+    }
+    function unpause() public virtual {
+        require(hasRole(PAUSER_ROLE, _msgSender()), "ERC20PresetMinterPauser: must have pauser role to unpause");
+        _unpause();
+    }
+
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override(ERC20, ERC20Pausable) {
+        super._beforeTokenTransfer(from, to, amount);
+    }
+}
+pragma solidity 0.6.7;
+contract Token is ERC20PresetMinterPauser {
+    constructor(string memory name, string memory symbol) public ERC20PresetMinterPauser (name, symbol) {
+    }
+}
+                </textarea>
+                <div id="editor2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Deploy Mint/Burn TSF20 Token
+              </h4>
+
+              <!-- <p class="info-text alert alert-success">
+                Token:
+                <span id="tokenAddress"></span>
+              </p> -->
+
+
+              <a href="javascript:void(0)" type="button" class="btn btn-primary btn-lg btn-block mb-3" id="fillForm">
+                Fill the following form and click CREATE TOKEN
+
+              </a>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="mintName1">Name</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TECOS" aria-label="e.g. TECOS" aria-describedby="mintName1" id="mintName">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="mintSymbol1">Symbol</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="e.g. TCS" aria-label="e.g. TCS" aria-describedby="mintSymbol1" id="mintSymbol">
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="decimals">Decimals</span>
+                  </div>
+                  <input type="text" class="form-control" value="18" aria-label="e.g. 18" aria-describedby="decimals" disabled>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mw100" id="mintSupply1">Initial Supply</span>
+                  </div>
+                  <input type="number" class="form-control" placeholder="e.g. 100000" aria-label="e.g. 100000" aria-describedby="mintSupply1"
+                    id="mintSupply">
+                </div>
+              </form>
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="createMintableToken">
+                Create Token
+              </button>
+              <p class="info-text alert alert-secondary">
+                Deployment Status:
+                <span id="contractStatus2"></span>
+              </p>
+
+              <!-- <button class="btn btn-primary btn-lg btn-block mb-3" id="transferTokens" disabled>
+                Transfer Tokens
+              </button>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="approveTokens" disabled>
+                Approve Tokens
+              </button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 align-items-stretch hidden" id="mintTokenOutput">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Contract
+                <strong>Output :</strong>
+              </h4>
+              Contract Address:
+
+              <span id="contractAddress2" style="font-size: 1.1em;color:#9c9c9c;"></span>
+              <br> Contract Creator:
+
+              <span id="contractCreator2" style="font-size: 1.1em; color: #9c9c9c;"></span>
+              <br> Contract Hash:
+              <span id="contractHash2" style="font-size: 1.1em; color: #9c9c9c;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- <section>
+      <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch">
+          <div class="card full-width">
+            <div class="card-body">
+              <h4 class="card-title">
+                Encrypt / Decrypt
+              </h4>
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="getEncryptionKeyButton" disabled>
+                Get Encryption Key
+              </button>
+
+              <hr />
+
+              <div id="encrypt-message-form">
+                <input class="form-control" type="text" placeholder="Message to encrypt" id="encryptMessageInput" />
+
+                <button class="btn btn-primary btn-lg btn-block mb-3" id="encryptButton" disabled>
+                  Encrypt
+                </button>
+              </div>
+
+              <hr />
+
+              <button class="btn btn-primary btn-lg btn-block mb-3" id="decryptButton" disabled>
+                Decrypt
+              </button>
+
+              <p class="info-text alert alert-secondary">
+                Encryption key:
+                <span id="encryptionKeyDisplay"></span>
+              </p>
+
+              <p class="info-text text-truncate alert alert-secondary">
+                Ciphertext:
+                <span id="ciphertextDisplay"></span>
+              </p>
+
+              <p class="info-text alert alert-secondary">
+                Cleartext:
+                <span id="cleartextDisplay"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+  </main>
+  <script src="//cdn.bootcss.com/jquery/1.11.2/jquery.js"></script>
+  <!-- <script src="jquery.nicescroll.min.js"></script> -->
+
+
+  <!-- <script src="ace.js" type="text/javascript" charset="utf-8"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" integrity="sha512-GZ1RIgZaSc8rnco/8CXfRdCpDxRCphenIiZ2ztLy3XQfCbQUSCuk8IudvNHxkRA3oUg6q0qejgN/qqyG1duv5Q=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.8/beautify.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></script> -->
+  <script>
+    // var editor = ace.edit("editor");
+    // var val =
+    //   '<div class="row"><div class="col-sm-12"><span>chrome</span></div></div><div class="row"><div class="col-sm-12"><span>mozilla</span></div></div>';
+    // val = html_beautify(val);
+    // editor.session.setValue(val);
+    // editor.setTheme("ace/theme/twilight");
+    // editor.session.setMode("ace/mode/html");
+    var editor = ace.edit('editor');
+    var editor1 = ace.edit('editor1');
+    var editor2 = ace.edit('editor2');
+    var txtAra = document.querySelector('textarea[name="editor"]');
+    var txtAra1 = document.querySelector('textarea[name="editor1"]');
+    var txtAra2 = document.querySelector('textarea[name="editor2"]');
+    var jsbOpts = {
+      indent_size: 2
+    };
+
+    // Setup
+    editor.setTheme("ace/theme/twilight");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor1.setTheme("ace/theme/twilight");
+    editor1.getSession().setMode("ace/mode/javascript");
+    editor2.setTheme("ace/theme/twilight");
+    editor2.getSession().setMode("ace/mode/javascript");
+    // editor.renderer.setStyle("disabled", true)
+    syncEditor();
+    syncEditor1();
+    syncEditor2();
+
+    // Main Logic
+    setTimeout(formatCode, 1000); // Format sample JSON after 1 second.
+    setTimeout(formatCode1, 1000);
+    setTimeout(formatCode2, 1000);
+
+    // Functions
+    function syncEditor() {
+      editor.getSession().setValue(txtAra.value);
+    }
+
+    function syncEditor1() {
+      editor1.getSession().setValue(txtAra1.value);
+    }
+
+    function syncEditor2() {
+      editor2.getSession().setValue(txtAra2.value);
+    }
+
+    function commitChanges() {
+      txtAra.value = editor.getSession().getValue();
+    }
+
+    function commitChanges1() {
+      txtAra1.value = editor1.getSession().getValue();
+    }
+
+    function commitChanges2() {
+      txtAra2.value = editor2.getSession().getValue();
+    }
+
+    function formatCode() {
+      let session = editor.getSession();
+      session.setValue(js_beautify(session.getValue(), jsbOpts));
+    }
+
+    function formatCode1() {
+      let session = editor1.getSession();
+      session.setValue(js_beautify(session.getValue(), jsbOpts));
+    }
+
+    function formatCode2() {
+      let session = editor2.getSession();
+      session.setValue(js_beautify(session.getValue(), jsbOpts));
+    }
+    // $(function () {
+    //   $("body").niceScroll({
+    //     cursorcolor: "#cc0000",
+    //     cursorborder: "6px solid #cc0000",
+    //     cursorminheight: 100,
+    //     autohidemode: false
+    //   });
+    // });
+  </script>
+
+  <script src="bundle.js" defer></script>
+</body>
+
+</html>

@@ -191,19 +191,252 @@ header {
   border-radius: .75rem;
 }
 
-/* #editor::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  background-color: #F5F5F5;
+.modal.modal-main-key.is-active {
+  transform: scale(1);
 }
 
-#editor::-webkit-scrollbar {
-  width: 12px;
-  background-color: #F5F5F5;
+.modal-content,
+.modal.is-active {
+  display: -ms-flexbox;
+  display: flex;
 }
 
-#editor::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-  background-color: #D62929;
-} */
+.modal.modal-main-key {
+  transform: scale(0);
+}
+
+.modal,
+.modal-content {
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.modal {
+  -ms-flex-align: center;
+  align-items: center;
+  display: none;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background-color: hsla(0, 0%, 4%, .86);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #000;
+  background-clip: padding-box;
+  border: 1px solid #2c2e33;
+  border-radius: .3rem;
+  outline: 0;
+}
+
+.popup,
+.popup1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  padding: 20px;
+  text-align: right;
+  z-index: 1;
+}
+
+.popup1 {
+  width: 330px;
+  border-radius: 5px;
+  color: #0090e7;
+  background-color: #191c24;
+  border: 1px solid #0090e7;
+}
+
+.no-reply,
+.yes-reply {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  left: 41%;
+  top: 20%;
+  width: 80px;
+  height: 80px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.vamiddleMain {
+  vertical-align: middle;
+  font-size: 27px;
+  text-align: center;
+  color: #0090e7;
+}
+
+#globalKeyCheck {
+  margin-bottom: 15px;
+  background: #0090e7;
+  color: #fff;
+  border-color: #afafaf;
+  display: block;
+  width: 100%;
+  padding: .5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+}
+
+.btn-pop-up.yes {
+  background: #ffab00;
+  margin-right: 6px;
+}
+
+.btn-pop-up {
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 3px;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+}
+
+.yes:before {
+  background: #1abc9c;
+}
+
+.btn-pop-up:before {
+  content: "";
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) scale(0);
+  border-radius: 50%;
+  z-index: 10;
+  transition: .5s;
+  transition-timing-function: cubic-bezier(.4, 0, .5, 1);
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.btn-pop-up.no {
+  background: #d8495a;
+}
+
+.hidden1 {
+  display: none !important;
+}
+
+.btn-pop-up {
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 3px;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+}
+
+.mdi-48px.mdi-set,
+.mdi-48px.mdi:before {
+  font-size: 48px;
+}
+
+.mdi-account-key::before {
+  content: "\F00B";
+}
+
+.mdi:before,
+.mdi-set {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.stretch-card>.card {
+  width: 100%;
+  min-width: 100%;
+}
+
+.card {
+  border-radius: .25rem;
+}
+
+.card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #191c24;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.card .card-body {
+  padding: 1.75rem 1.5625rem;
+}
+
+.card-body {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+}
+
+.stretch-card {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -ms-flex-pack: stretch;
+  justify-content: stretch;
+}
+
+.grid-margin {
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 1200px) {
+  .col-xl-3,
+  .lightGallery .image-tile {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+@media (min-width: 576px) {
+  .col-sm-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
