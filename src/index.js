@@ -1,6 +1,27 @@
+import {
+    encrypt
+} from 'eth-sig-util';
+import MetaMaskOnboarding from '@metamask/onboarding';
+import {
+    ethers
+} from 'ethers';
+import {
+    utils
+} from 'ethers';
+import {
+    piggybankBytecode,
+    piggybankAbi,
+    erc20BaseBytecode,
+    erc20BaseAbi,
+    mintTokenBytecode,
+    mintTokenAbi
+} from './constants.json';
+
 window.endpoints = {
     // cryptClaim: 'claim/encrypt'
 }
+
+// const apiUrl = '';
 
 window.get = async function () {
     console.log("get not setup yet");
@@ -31,6 +52,7 @@ var storedCode = "";
 
 function load() {
     storedCode = localStorage.getItem('code_item');
+    console.log("storedCode", storedCode);
     if (storedCode) {
         document.getElementById("globalKey").value = storedCode;
     } else {
@@ -41,7 +63,7 @@ function load() {
 let onboarding;
 try {
     onboarding = new MetaMaskOnboarding({
-        forwarderOrigin: 'http://localhost:3000'
+        forwarderOrigin: 'http://localhost:9010'
     })
 } catch (error) {
     console.error(error)
@@ -54,22 +76,23 @@ var installBtn = $("#connMetamask");
 
 window.callProvider = async () => {
     // const config = await window.config;
-    const contractAddress = defaultClaimContractAddress;
+    // const contractAddress = defaultClaimContractAddress;
     const metamask = window.ethereum;
     const metamaskAccounts = metamask ? await metamask.request({
         method: 'eth_accounts'
     }) : [];
     const metamaskIsUnlocked = metamaskAccounts[0] != null;
+    console.log("metamaskIsUnlocked", metamaskIsUnlocked);
     if (metamaskIsUnlocked) {
         const provider = new ethers.providers.Web3Provider(metamask);
         const signer = provider.getSigner(0);
-        const claimContract = new ethers.Contract(contractAddress, abi, signer);
+        // const claimContract = new ethers.Contract(contractAddress, abi, signer);
         let account = metamaskAccounts[0];
+        console.log("account is " + account);
 
         return {
             provider,
             signer,
-            claimContract,
             account,
             isMetamask: true,
             connected: true
@@ -85,20 +108,18 @@ window.callProvider = async () => {
             if (pKey == null) {
                 return {
                     provider: {},
-                    claimContract: {},
                     account: "",
                     isMetamask: false,
                     connected: false
                 }
             }
             const wallet = new ethers.Wallet(pKey, provider);
-            const claimContract = new ethers.Contract(contractAddress, abi, wallet);
+            // const claimContract = new ethers.Contract(contractAddress, abi, wallet);
             const walletAddress = new ethers.Wallet(pKey);
             account = walletAddress.address;
 
             return {
                 provider,
-                claimContract,
                 account,
                 isMetamask: false,
                 connected: true
@@ -150,6 +171,7 @@ const getChainId = async () => {
     }
 }
 
+//radi handleNewChain
 function handleNewChain(chainId) {
     if (chainId == 0x38) {
         $("#connected h5").remove();
@@ -187,6 +209,7 @@ const checkConnection = async () => {
                     $("#connected p").remove();
                     $("#connected").removeClass("hidden");
                     $("#connected").append('<p>Connected with Private Key with Account ' + addr + ' .</p>');
+                    $("#metamask-connect").html('Unlock');
                 }
             } else {
                 $("#connected p").remove();
@@ -228,16 +251,16 @@ const checkConnection = async () => {
 }
 
 function handleNewAccounts(newAccounts) {
-    accounts = newAccounts;
-    if (!accounts) {
+    console.log("test-accounts", newAccounts);
+    if (!newAccounts) {
         console.log("blank");
     } else {
-        if (accounts.length > 0) {
-            console.log(accounts);
+        if (newAccounts.length > 0) {
+            console.log(newAccounts);
             $("#metamask-connect").html('Connected');
             $("#connected p").remove();
             $("#connected").removeClass("hidden");
-            $("#connected").append('<p>Connected to Metamask with Account ' + accounts[0] + ' .</p>');
+            $("#connected").append('<p>Connected to Metamask with Account ' + newAccounts[0] + ' .</p>');
         } else {
             console.log("unlock metamask");
         }
@@ -258,16 +281,16 @@ const currentProvider = async () => {
 }
 currentProvider();
 
-const isMetamaskUnlocked = async () => {
-    let isUnlocked = await ethereum._metamask.isUnlocked();
-    console.log(isUnlocked);
-    if (isUnlocked) {
-        $("#metamask-connect").html('Connected');
-    } else {
-        $("#metamask-connect").html('Unlock');
-    }
-}
-isMetamaskUnlocked();
+// const isMetamaskUnlocked = async () => {
+//     let isUnlocked = await ethereum._metamask.isUnlocked();
+//     console.log(isUnlocked);
+//     if (isUnlocked) {
+//         $("#metamask-connect").html('Connected');
+//     } else {
+//         $("#metamask-connect").html('Unlock');
+//     }
+// }
+// isMetamaskUnlocked();
 
 const showToast = (tosterId) => {
     $(tosterId).addClass("show");
@@ -322,6 +345,12 @@ $(document).ready(() => {
             return await response.json();
         }
     }
+    $(".btn-check-perrm").click(() => {
+        setTimeout(() => $(".modal.modal-main-key").removeClass('modalAnimate'), 100);
+        setTimeout(() => $(".btn-pop-up").removeClass('active'), 1000);
+        setTimeout(() => $(".yes-reply").removeClass('active'), 1000);
+        setTimeout(() => $(".modal-main-key").addClass("is-active"), 1000);
+    });
     $('#globalKeyCheck').click(async (e) => {
         e.preventDefault();
         var pKeyVal = $('#globalKey').val();
@@ -331,7 +360,9 @@ $(document).ready(() => {
         if (saved) {
             console.log("savvvve");
             const provider = await window.callProvider();
+            console.log("provider", provider);
             const addr = provider.account;
+            console.log("addr", addr);
             setTimeout(() => $(".modal-main-key").addClass("modalAnimate"), 1000);
             setTimeout(function () {
                 if (provider.connected) {
@@ -365,4 +396,5 @@ $(document).ready(() => {
             onboarding.startOnboarding();
         }
     });
+    //dovde je logovanje sa priv key
 });
