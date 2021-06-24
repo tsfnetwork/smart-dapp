@@ -439,13 +439,51 @@ header {
   }
 }
 
-@media (min-width: 576px) {
+@media only screen and (min-width: 576px) {
   .col-sm-6 {
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%;
   }
 }
+
+@media only screen and (min-width: 1300px) {
+  .stretch-card>.card { 
+    width: 80%; 
+    min-width: 80%; 
+    margin: auto; 
+  }
+}
+@media only screen and (min-width: 320px) and (max-width: 1299px) {
+  .stretch-card>.card { 
+    width: 100%; 
+    min-width: 100%; 
+    margin: auto; 
+  }
+}
+
+@media only screen and (min-width: 575px) and (max-width: 767px) {
+  .stretch-card { 
+    width: 80%; 
+    min-width: 80%; 
+    margin: auto; 
+    margin-bottom: 15px;
+    
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .stretch-card { 
+    width: 80%; 
+    min-width: 80%; 
+    margin: auto; 
+    margin-bottom: 15px;
+  }
+  .stretch-card>.card h1 { 
+   font-size: 1.5rem;
+  }
+}
+
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
