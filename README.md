@@ -12,7 +12,7 @@ To clone and run this repository you'll need Git and Node.js (which comes with n
 # Clone this repository
 git clone https://github.com/tsfnetwork/smart-dapp
 # Go into the repository
-cd libertas-tsf-wallet
+cd smart-dapp
 # Install dependencies
 npm install
 # Run the app
