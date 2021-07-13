@@ -623,3 +623,7 @@ header {
 .space1 {
   height: 10px;
 }
+
+.privacyPolicy {
+  text-align: center;
+}
