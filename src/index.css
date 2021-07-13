@@ -1,5 +1,5 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: black;
   background-image: url(background.png);
   background-position: center;
@@ -63,7 +63,7 @@ header {
 #logo-text {
   padding-top: 65px;
   padding-bottom: 5px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   color: #5e646d;
 }
@@ -81,22 +81,72 @@ header {
 
 .btn-primary {
   background: rgba(57, 100, 208, 1);
-  background: -moz-linear-gradient(left, rgba(57, 100, 208, 1) 0, rgba(45, 193, 201, 1) 100%);
-  background: -webkit-gradient(left top, right top, color-stop(0, rgba(57, 100, 208, 1)), color-stop(100%, rgba(45, 193, 201, 1)));
-  background: -webkit-linear-gradient(left, rgba(57, 100, 208, 1) 0, rgba(45, 193, 201, 1) 100%);
-  background: -o-linear-gradient(left, rgba(57, 100, 208, 1) 0, rgba(45, 193, 201, 1) 100%);
-  background: -ms-linear-gradient(left, rgba(57, 100, 208, 1) 0, rgba(45, 193, 201, 1) 100%);
-  background: linear-gradient(to right, rgba(57, 100, 208, 1) 0, rgba(45, 193, 201, 1) 100%);
+  background: -moz-linear-gradient(
+    left,
+    rgba(57, 100, 208, 1) 0,
+    rgba(45, 193, 201, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right top,
+    color-stop(0, rgba(57, 100, 208, 1)),
+    color-stop(100%, rgba(45, 193, 201, 1))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(57, 100, 208, 1) 0,
+    rgba(45, 193, 201, 1) 100%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(57, 100, 208, 1) 0,
+    rgba(45, 193, 201, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    left,
+    rgba(57, 100, 208, 1) 0,
+    rgba(45, 193, 201, 1) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(57, 100, 208, 1) 0,
+    rgba(45, 193, 201, 1) 100%
+  );
 }
 
 .btn-primary:hover {
   background: rgba(45, 193, 201, 1);
-  background: -moz-linear-gradient(left, rgba(45, 193, 201, 1) 0%, rgba(57, 100, 208, 1) 100%);
-  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(45, 193, 201, 1)), color-stop(100%, rgba(57, 100, 208, 1)));
-  background: -webkit-linear-gradient(left, rgba(45, 193, 201, 1) 0%, rgba(57, 100, 208, 1) 100%);
-  background: -o-linear-gradient(left, rgba(45, 193, 201, 1) 0%, rgba(57, 100, 208, 1) 100%);
-  background: -ms-linear-gradient(left, rgba(45, 193, 201, 1) 0%, rgba(57, 100, 208, 1) 100%);
-  background: linear-gradient(to right, rgba(45, 193, 201, 1) 0%, rgba(57, 100, 208, 1) 100%);
+  background: -moz-linear-gradient(
+    left,
+    rgba(45, 193, 201, 1) 0%,
+    rgba(57, 100, 208, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right top,
+    color-stop(0%, rgba(45, 193, 201, 1)),
+    color-stop(100%, rgba(57, 100, 208, 1))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(45, 193, 201, 1) 0%,
+    rgba(57, 100, 208, 1) 100%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(45, 193, 201, 1) 0%,
+    rgba(57, 100, 208, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    left,
+    rgba(45, 193, 201, 1) 0%,
+    rgba(57, 100, 208, 1) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(45, 193, 201, 1) 0%,
+    rgba(57, 100, 208, 1) 100%
+  );
   color: #fff;
 }
 
@@ -193,8 +243,8 @@ header {
   word-wrap: break-word;
   background-color: #ffffff05;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, .125);
-  border-radius: .75rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.75rem;
 }
 
 .modal.modal-main-key.is-active {
@@ -228,7 +278,7 @@ header {
   display: none;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: hsla(0, 0%, 4%, .86);
+  background-color: hsla(0, 0%, 4%, 0.86);
 }
 
 .modal {
@@ -249,7 +299,7 @@ header {
   background-color: #000;
   background-clip: padding-box;
   border: 1px solid #2c2e33;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   outline: 0;
 }
 
@@ -302,10 +352,10 @@ header {
   border-color: #afafaf;
   display: block;
   width: 100%;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
 }
 
 .btn-pop-up.yes {
@@ -336,8 +386,8 @@ header {
   transform: translateX(-50%) translateY(-50%) scale(0);
   border-radius: 50%;
   z-index: 10;
-  transition: .5s;
-  transition-timing-function: cubic-bezier(.4, 0, .5, 1);
+  transition: 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.5, 1);
 }
 
 *,
@@ -389,13 +439,13 @@ header {
   box-sizing: border-box;
 }
 
-.stretch-card>.card {
+.stretch-card > .card {
   width: 100%;
   min-width: 100%;
 }
 
 .card {
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .card {
@@ -408,7 +458,7 @@ header {
   word-wrap: break-word;
   background-color: #191c24;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, .125);
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .card .card-body {
@@ -453,47 +503,45 @@ header {
 }
 
 @media only screen and (min-width: 1300px) {
-  .stretch-card>.card { 
-    width: 80%; 
-    min-width: 80%; 
-    margin: auto; 
+  .stretch-card > .card {
+    width: 80%;
+    min-width: 80%;
+    margin: auto;
   }
 }
 @media only screen and (min-width: 320px) and (max-width: 1299px) {
-  .stretch-card>.card { 
-    width: 100%; 
-    min-width: 100%; 
-    margin: auto; 
+  .stretch-card > .card {
+    width: 100%;
+    min-width: 100%;
+    margin: auto;
   }
 }
 
 @media only screen and (min-width: 575px) and (max-width: 767px) {
-  .stretch-card { 
-    width: 80%; 
-    min-width: 80%; 
-    margin: auto; 
+  .stretch-card {
+    width: 80%;
+    min-width: 80%;
+    margin: auto;
     margin-bottom: 15px;
-    
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 992px) {
-  .stretch-card { 
-    width: 80%; 
-    min-width: 80%; 
-    margin: auto; 
+  .stretch-card {
+    width: 80%;
+    min-width: 80%;
+    margin: auto;
     margin-bottom: 15px;
   }
-  .stretch-card>.card h1 { 
-   font-size: 1.5rem;
+  .stretch-card > .card h1 {
+    font-size: 1.5rem;
   }
 }
 
-
 .material-icons {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -511,25 +559,39 @@ header {
   -moz-osx-font-smoothing: grayscale;
 
   /* Support for IE. */
-  font-feature-settings: 'liga';
+  font-feature-settings: "liga";
 }
 /* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
 
 /* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); 
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
 }
 
 /* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); 
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
 }
-.material-icons.orange600 { 
-  color: #f5841f; 
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+.material-icons.orange600 {
+  color: #f5841f;
 }
 
 .mt15 {
@@ -540,8 +602,24 @@ header {
   background-color: #ffab00;
   border-color: #ffab00;
 }
-.btn-outline-success:hover, .editable-container.editable-inline .editableform .control-group .editable-buttons .editable-submit:hover {
+.btn-outline-success:hover,
+.editable-container.editable-inline
+  .editableform
+  .control-group
+  .editable-buttons
+  .editable-submit:hover {
   color: #fff;
   background-color: #00d25b;
   border-color: #00d25b;
+}
+
+.privacyPolicy a {
+  text-align: center;
+  color: #fff;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.space1 {
+  height: 10px;
 }
